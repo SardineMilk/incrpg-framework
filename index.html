@@ -1,0 +1,63 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incremental RPG</title>
+
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="game-container">
+        <header>
+        </header>
+
+        <main class="game-screen">
+            <div class="hero-box">
+                <div class="name-box">Hero</div>
+                <div class="xp-bar">XP</div>
+                <div class="status-box">
+                    <div class="health-bar">HP</div>
+                    <div class="stamina-bar">SP</div>
+                    <div class="mental-bar">MP</div>
+                </div>
+                <div class="statistics-box">
+                    <!-- 4 physical, 4 mental. Power, Resilience, Speed, Accuracy -->
+                     <!-- Current numbers and progress injected by JS -->
+                    <div class="attribute-box">Strength</div>
+                    <div class="attribute-box">Constitution</div>
+                    <div class="attribute-box">Agility</div>
+                    <div class="attribute-box">Dexterity</div>
+                    <div class="attribute-box">Intelligence</div>
+                    <div class="attribute-box">Willpower</div>
+                    <div class="attribute-box">Wit</div>
+                    <div class="attribute-box">Perception</div>
+                </div>
+                <div class="money-box">Gold</div>
+                <div class="effects-box">Active Effects</div>
+            </div>
+            
+            <div class="skills-box">
+                <!-- Current visible skills injected here -->
+                <!-- Skills become visible after 50% of progress to level 1-->
+            </div>
+
+
+            <div class="actions-box">
+                <!-- Available actions injected here -->
+            </div>
+
+            <div class="tasks-box">
+                <!-- Current tasks injected here-->
+            </div>
+
+        </main>
+
+        <footer>
+            <p>&copy; 2026</p>
+        </footer>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
