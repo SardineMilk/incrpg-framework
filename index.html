@@ -18,23 +18,15 @@
                 <div class="name-box">Hero</div>
                 <div class="xp-bar">XP</div>
                 <div class="status-box">
-                    <div class="health-bar">HP</div>
-                    <div class="stamina-bar">SP</div>
-                    <div class="mental-bar">MP</div>
+                    <div class="health-bar" id="health-bar">HP</div>
+                    <div class="stamina-bar" id="stamina-bar">SP</div>
+                    <div class="mental-bar" id="mental-bar">MP</div>
                 </div>
-                <div class="statistics-box">
+                <div class="stats-box" id="stats-box">
                     <!-- 4 physical, 4 mental. Power, Resilience, Speed, Accuracy -->
-                     <!-- Current numbers and progress injected by JS -->
-                    <div class="attribute-box">Strength</div>
-                    <div class="attribute-box">Constitution</div>
-                    <div class="attribute-box">Agility</div>
-                    <div class="attribute-box">Dexterity</div>
-                    <div class="attribute-box">Intelligence</div>
-                    <div class="attribute-box">Willpower</div>
-                    <div class="attribute-box">Wit</div>
-                    <div class="attribute-box">Perception</div>
+                    <!-- Current numbers and progress injected by JS -->
                 </div>
-                <div class="money-box">Gold</div>
+                <div class="money-box" id="money-box">Gold</div>
                 <div class="effects-box">Active Effects</div>
             </div>
             
@@ -42,7 +34,6 @@
                 <!-- Current visible skills injected here -->
                 <!-- Skills become visible after 50% of progress to level 1-->
             </div>
-
 
             <div class="actions-box">
                 <!-- Available actions injected here -->
@@ -52,12 +43,16 @@
                 <!-- Current tasks injected here-->
             </div>
 
+            <div class="log-box">
+                <!-- Log of events -->
+            </div>
+
         </main>
 
         <footer>
             <p>&copy; 2026</p>
         </footer>
     </div>
-    <script src="main.js"></script>
+    <script type="module" src="src/main.js"></script>
 </body>
 </html>
