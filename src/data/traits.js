@@ -54,8 +54,8 @@ export const TRAITS = {
     },
 
     /* Unarmed + Unarmored */
-    boxer: {
-        name: "Boxer",
+    brawler: {
+        name: "Brawler",
         effects:{},
         description: "Fight without armor or a weapon. Float like a leaf, hit like a boulder."
     },

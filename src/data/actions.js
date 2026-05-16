@@ -5,19 +5,33 @@ export const ACTIONS = {
 
   jogging: {
     name: "Jogging",
-    duration: 1,
+    duration: 20,
     requirements: [
-
+      req.location("village"),
     ],
 
+    attributes: {
+      strength: 0.2,
+      constitution: 0.5,
+      agility: 1,
+      dexterity: 0.2,
+      intelligence: 0,
+      willpower: 0.2,
+      wit: 0,
+      perception: 0.2,
+    },
+
+    skills: {
+      running:1,
+      exercise:0.5,
+    },
+
     tick: [
-      // Replace stamina drain here
+      res.resource("stamina", -1),
     ],
 
     result: [
-      res.resource("stamina", -5),
-      res.skillXp("exercise", 10),
-      res.skillXp("running", 10),
+      res.log("Result", "You went for a short run"),
     ]
 
   },
@@ -28,8 +42,7 @@ export const ACTIONS = {
     duration: 30,
 
     requirements: [
-      req.item("sword"),
-      req.location("village"),
+      [req.item("sword"), req.location("village"),]
     ],
 
     result: [

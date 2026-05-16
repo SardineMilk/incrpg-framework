@@ -116,12 +116,12 @@ export const SKILLS = {
 
   training: {
     name:"Training",
-    description:"Get stronger without risking your life. A revolutionary concept.",
+    description:"Get stronger without risking your life, a revolutionary concept.",
     parent:null,
   },
   exercise: {
     name:"Exercise",
-    description:"Expend physical effort without any clear goal or reward. A luxurious passtime.",
+    description:"Expend physical effort without any clear goal or reward. A luxurious pastime.",
     parent:"training",
   },
   sparring: {

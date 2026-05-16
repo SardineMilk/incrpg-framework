@@ -37,7 +37,7 @@ function propagateParentXp(game, skillId, amount) {
 
 function applySkillXpModifiers(state, skillId, baseXp) {
   const modifier = getSkillXpModifier(state, skillId);
-  const xp = Math.floor(baseXp * modifier);
+  const xp = baseXp * modifier;
   return xp;
 }
 

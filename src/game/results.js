@@ -18,6 +18,12 @@ export const res = {
     type: "move",
     location,
   }),
+
+  log: (category, message) => ({
+    type: "log",
+    category, 
+    message,
+  }),
 };
 
 export function applyResult(game, result) {
@@ -30,6 +36,9 @@ export function applyResult(game, result) {
       break;
     case "move":
       game.location = result.location;
+      break;
+    case "log":
+      console.log(`${result.category}: ${result.message}`);
       break;
   }
 }

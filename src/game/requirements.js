@@ -17,23 +17,28 @@ export const req = {
   }),
 };
 
-export function meetsRequirements(game, action) {
 
+function meets(requirement) {
   return action.requirements.every(r => {
-
     switch (r.type) {
-
       case "item":
         return game.inventory[r.item] > 0;
-
       case "location":
+        // TODO allow location tags. e.g. aquatic, settlement, indoors
         return game.location === r.location;
-
       case "stat":
         return game.stats[r.stat] >= r.value;
-
       default:
         return false;
     }
   });
+}
+
+export function meetsRequirements(game, action) {
+  // Actions can have multiple viable requirements
+  // Climbing - is mountain or is forest
+  for (const requirement in action.requirements) {
+    if (meets(requirement)) return true;
+  }
+  return false;
 }
