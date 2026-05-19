@@ -1,39 +1,71 @@
+// This should be constructed from save data
 export const game = {
 
   tick: 0,
 
   resources: {
-    health: 100,
-    maxHealth: 100,
+    health: {
+      current: 100,
+      baseMax: 100,
+      multiplier: 1,
+    },
 
-    stamina: 100,
-    maxStamina: 100,
+    stamina: {
+      current: 100,
+      baseMax: 100,
+      multiplier: 1,
+    },
 
-    mental: 100,
-    maxMental: 100,
-
-    gold: 0,
+    mental: {
+      current: 100,
+      baseMax: 100,
+      multiplier: 1,
+    },
   },
 
   attributes: {
-    strength: 10,
-    constitution: 10,
-    agility: 10,
-    dexterity: 10,
-    intelligence: 10,
-    willpower: 10,
-    wit: 10,
-    perception: 10,
+    strength: {
+      base:10,
+      multiplier:1,
+    },
+    constitution: {
+      base:10,
+      multiplier:1,
+    },
+    agility: {
+      base:10,
+      multiplier:1,
+    },
+    dexterity: {
+      base:10,
+      multiplier:1,
+    },
+    intelligence: {
+      base:10,
+      multiplier:1,
+    },
+    willpower: {
+      base:10,
+      multiplier:1,
+    },
+    wit: {
+      base:10,
+      multiplier:1,
+    },
+    perception: {
+      base:10,
+      multiplier:1,
+    },
   },
 
   skills: {
-    sword: {
+    combat: {
       xp: 0,
       level: 0,
       multiplier: 1,
     },
 
-    combat: {
+    sword: {
       xp: 0,
       level: 0,
       multiplier: 1,
@@ -46,6 +78,12 @@ export const game = {
     },
 
     regeneration: {
+      xp: 0,
+      level: 0,
+      multiplier: 1,
+    },
+
+    breathing: {
       xp: 0,
       level: 0,
       multiplier: 1,
@@ -72,10 +110,10 @@ export const game = {
   },
 
   traits: [
-    "combat_training_1",
+    "combat_1",
   ],
 
-  effects: {
+  activeConditions: {
     wet: 60,
   },
 
@@ -88,4 +126,13 @@ export const game = {
   location: "village",
 
   activeAction: "jogging",
+
+  
+  actionCompletions: {},
+  actionProgresses: {},
+
+  actionSkillFactors: {},
+  effectStrengths: {},
+  statMultipliers: {},
+
 };

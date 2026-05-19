@@ -1,6 +1,4 @@
 import { SKILLS } from "../data/skills.js";
-import { EFFECTS } from "../data/effects.js";
-import { TRAITS } from "../data/traits.js";
 
 export function xpToNext(level) {
   // xpToNext = Math.floor(scalingFactor * Math.pow(2, level/5));
@@ -10,6 +8,7 @@ export function xpToNext(level) {
 }
 
 export function grantSkillXp(game, skillId, amount) {
+  game.skills[skillId] = game.skills[skillId] || {xp:0, level:0}; 
   const skill = game.skills[skillId];
 
   const xpForSkill = applySkillXpModifiers(game, skillId, amount);
@@ -19,7 +18,7 @@ export function grantSkillXp(game, skillId, amount) {
     skill.xp -= xpToNext(skill.level);
     skill.level++;
 
-    console.log(`${skillId} leveled to ${skill.level}. XP to next: ${xpToNext(skill.level)}`);
+    console.log(`${SKILLS[skillId].name} leveled to ${skill.level}. XP to next: ${xpToNext(skill.level)}`);
   }
 
   propagateParentXp(game, skillId, amount);
@@ -42,8 +41,6 @@ function applySkillXpModifiers(state, skillId, baseXp) {
 }
 
 function getSkillXpModifier(state, skillId) {
-  const heroTraits = state.traits;
-  const activeEffects = state.effects;
 
   return 1;
 }

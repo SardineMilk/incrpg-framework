@@ -10,8 +10,9 @@ src
     - actions: stores actions, requirements, results
     - locations: stores locations, tags, ambient effects
     - skills: stores skills, parents. TODO milestones 
-    - effects: stores temporary effects, durations
+    - conditions: stores temporary conditions, durations
     - traits: stores permanent player traits. Granted by skill milestones, quests
 - ui
     - render: call all other ui functions
     
+

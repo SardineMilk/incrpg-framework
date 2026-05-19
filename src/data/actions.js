@@ -1,5 +1,5 @@
 import { req } from "../game/requirements.js";
-import { res } from "../game/results.js";
+import { eff } from "../game/effects.js";
 
 export const ACTIONS = {
 
@@ -27,11 +27,11 @@ export const ACTIONS = {
     },
 
     tick: [
-      res.resource("stamina", -1),
+      eff.changeResource("stamina", -1),
     ],
 
     result: [
-      res.log("Result", "You went for a short run"),
+      eff.sendMessage("Result", "You went for a short run"),
     ]
 
   },
@@ -45,9 +45,15 @@ export const ACTIONS = {
       [req.item("sword"), req.location("village"),]
     ],
 
+
+    skills: {
+      sword: 1,
+      training: 0.5,
+    },
+
     result: [
-      res.resource("stamina", -5),
-      res.skillXp("sword", 25),
+      eff.changeResource("stamina", -5),
+      eff.grantSkillXp("sword", 25),
     ],
   },
 
@@ -56,9 +62,14 @@ export const ACTIONS = {
 
     duration: 50,
 
+    skills: {
+      meditation: 1,
+      breathing: 0.5,
+    },
+
     result: [
-      res.resource("mp", 10),
-      res.skillXp("meditation", 20),
+      eff.changeResource("mental", 10),
+      eff.grantSkillXp("meditation", 20),
     ],
   },
 };

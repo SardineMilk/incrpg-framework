@@ -1,4 +1,4 @@
-export const EFFECTS = {
+export const CONDITIONS = {
 
     wet: {
         name:"Wet",
