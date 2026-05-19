@@ -58,57 +58,6 @@ export const game = {
     },
   },
 
-  skills: {
-    combat: {
-      xp: 0,
-      level: 0,
-      multiplier: 1,
-    },
-
-    sword: {
-      xp: 0,
-      level: 0,
-      multiplier: 1,
-    },
-
-    meditation: {
-      xp: 0,
-      level: 0,
-      multiplier: 1,
-    },
-
-    regeneration: {
-      xp: 0,
-      level: 0,
-      multiplier: 1,
-    },
-
-    breathing: {
-      xp: 0,
-      level: 0,
-      multiplier: 1,
-    },
-
-    training: {
-      xp: 0,
-      level: 0,
-      multiplier: 1,
-    },
-
-    exercise: {
-      xp: 0,
-      level: 0,
-      multiplier: 1,
-    },
-
-    running: {
-      xp: 0,
-      level: 0,
-      multiplier: 1,
-    },
-
-  },
-
   traits: [
     "combat_1",
   ],
@@ -132,7 +81,5 @@ export const game = {
   actionProgresses: {},
 
   actionSkillFactors: {},
-  effectStrengths: {},
-  statMultipliers: {},
-
+  conditionStrengths: {},
 };

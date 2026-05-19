@@ -1,6 +1,8 @@
 import { SKILLS } from "../data/skills.js";
 import { ACTIONS } from "../data/actions.js";
+import { CONDITIONS } from "../data/conditions.js";
 import { TRAITS } from "../data/traits.js";
+import { applyEffect } from "../game/effects.js";
 
 function calculateActionSkillFactor(game, action) {
   let skillFactor = 1;
@@ -18,24 +20,28 @@ export function calculateActionSkillFactors(game) {
     }
 }
 
-export function calculateSkillMultipliers(game) {
 
+export function applyTraitEffects(game) {
+    for (const trait of game.traits) {
+        for (const effect of TRAITS[trait].effects) {
+            applyEffect(game, effect);
+        }
+    }
+}
+
+export function applyConditionEffects(game) {
+    for (const condition in game.activeConditions) {
+        for (const effect in CONDITIONS[condition].effect) {
+            // TODO apply condition strength
+            conditionStrength = game.conditionStrengths[condition];
+            applyEffect(game, effect);
+        }
+    }
+}
+
+export function initialiseState(game) {
+    game.skills = game.skills || {};
     for (const skill in SKILLS) {
-        let multiplier = 1;
-
-        // TODO remove nested loop
-        for (const trait of game.traits) {
-            const traitDef = TRAITS[trait];
-            if (!traitDef || !traitDef.effects) continue;
-
-            for (const [effect, number] in Object.entries(traitDef.effects)) {
-                if (effect == skill) {
-                    multiplier *= number;
-                }
-            }
-        } 
-        
-        game.skills[skill] = game.skills[skill] || { multiplier: 1 };
-        game.skills[skill].multiplier = multiplier;
+        game.skills[skill] = game.skills[skill] || { xp: 0, level: 0, multiplier: 1 };
     }
 }

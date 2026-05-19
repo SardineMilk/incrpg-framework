@@ -8,10 +8,11 @@ export function xpToNext(level) {
 }
 
 export function grantSkillXp(game, skillId, amount) {
-  game.skills[skillId] = game.skills[skillId] || {xp:0, level:0}; 
+  game.skills = game.skills || {};
+  game.skills[skillId] = game.skills[skillId] || {xp:0, level:0, multiplier:1}; 
   const skill = game.skills[skillId];
 
-  const xpForSkill = applySkillXpModifiers(game, skillId, amount);
+  const xpForSkill = amount * game.skills[skillId].multiplier;
   skill.xp += xpForSkill;  // TODO add modifiers
   while (skill.xp >= xpToNext(skill.level)) {
 
@@ -21,7 +22,8 @@ export function grantSkillXp(game, skillId, amount) {
     console.log(`${SKILLS[skillId].name} leveled to ${skill.level}. XP to next: ${xpToNext(skill.level)}`);
   }
 
-  propagateParentXp(game, skillId, amount);
+  // Should this be `amount` or `xpForSkill`?
+  propagateParentXp(game, skillId, xpForSkill);
 }
 
 function propagateParentXp(game, skillId, amount) {
@@ -32,15 +34,4 @@ function propagateParentXp(game, skillId, amount) {
 
   const parentFactor = 0.5
   grantSkillXp(game, parent, amount * parentFactor);
-}
-
-function applySkillXpModifiers(state, skillId, baseXp) {
-  const modifier = getSkillXpModifier(state, skillId);
-  const xp = baseXp * modifier;
-  return xp;
-}
-
-function getSkillXpModifier(state, skillId) {
-
-  return 1;
 }
