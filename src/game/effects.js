@@ -10,6 +10,7 @@ Trait effects are applied once when first gained
 Action tick effects and result effects are applied by the tick functions as required
 */
 
+import { removeConditionEffects } from "../utils/state_creator.js";
 import { grantSkillXp } from "./skills.js";
 
 // Object that has functions as parameters that return standard structured object which can be used by applyEffect
@@ -20,8 +21,8 @@ export const eff = {
         baseAmount,
     }),
 
-    skillMultiplier: (skill, multiplier) => ({
-        type: "skillMultiplier",
+    skillXpMultiplier: (skill, multiplier) => ({
+        type: "skillXpMultiplier",
         skill,
         multiplier,
     }),
@@ -61,6 +62,12 @@ export const eff = {
         category, 
         message,
     }),
+
+    addEventEffect: (event, effect) => ({
+        type: "addEventEffect",
+        event,
+        effect,
+    }),
 };
 
 
@@ -69,7 +76,7 @@ export function applyEffect(game, effect) {
         case "grantSkillXp":
             grantSkillXp(game, effect.skill, effect.baseAmount);
             break;
-        case "skillMultiplier":
+        case "skillXpMultiplier":
             game.skills = game.skills || {};
             game.skills[effect.skill] = game.skills[effect.skill] || { multiplier: 1 };
             game.skills[effect.skill].multiplier += effect.multiplier;
@@ -83,6 +90,7 @@ export function applyEffect(game, effect) {
         case "applyCondition":
             game.activeConditions = game.activeConditions || {};
             game.activeConditions[effect.condition] = effect.duration;
+            applyConditionEffects(game, effect);
             break;
         case "conditionStrength":
             game.conditionStrengths = game.conditionStrengths || {};
@@ -99,7 +107,54 @@ export function applyEffect(game, effect) {
         case "sendMessage":
             console.log(`${effect.category}: ${effect.message}`);
             break;
+        case "addEventEffect":
+            game.eventEffects = game.eventEffects || {};
+            game.eventEffects[effect.event] = game.eventEffects[effect.event] || [];
+            game.eventEffects[effect.event].push(effect.effect);
+            break;
         default:
             console.warn("Unknown effect type:", effect.type);
     }
 }
+
+export function removeEffect(game, effect) {
+    switch (effect.type) {
+        case "skillXpMultiplier":
+            effect.multiplier = 1 - effect.multiplier;
+            applyEffect(game, effect);
+            break;
+        case "changeStat":
+            effect.flat = -effect.flat;
+            effect.multiplier = 1 - effect.multiplier;
+            applyEffect(game, effect);
+            break;
+        case "applyCondition":
+            game.activeConditions.remove(effect.condition);
+            removeConditionEffects(game, effect);
+            break;
+        case "conditionStrength":
+            break;
+        default:
+            console.log(`Cannot remove effect: `, effect);
+    }
+}
+
+
+export function applyConditionEffects(game, condition) {
+    for (const effect in CONDITIONS[condition].effect) {
+        // TODO apply condition strength
+        conditionStrength = game.conditionStrengths[condition];
+        applyEffect(game, effect);
+    }
+    
+}
+
+
+export function removeConditionEffects(game, condition) {
+    for (const effect in CONDITIONS[condition].effect) {
+        // TODO apply condition strength
+        conditionStrength = game.conditionStrengths[condition];
+        removeEffect(game, effect);
+    }
+}
+

@@ -21,6 +21,11 @@ export function startTicking(render) {
 function tick() {
   game.tick++;
 
+  const tickEffects = game.eventEffects["tick"];
+  for (const effect of tickEffects) {
+    applyEffect(game, effect);
+  }
+
   if (game.activeAction) {
     processAction();
   }
@@ -35,7 +40,6 @@ function processAction() {
   // Decreases time taken, increases skill gain
   let skillFactor = game.actionSkillFactors[current_id];
   let duration = action.duration / skillFactor;
-
 
   for (const effect of action.tick) {
     applyEffect(game, effect);

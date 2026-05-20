@@ -29,15 +29,6 @@ export function applyTraitEffects(game) {
     }
 }
 
-export function applyConditionEffects(game) {
-    for (const condition in game.activeConditions) {
-        for (const effect in CONDITIONS[condition].effect) {
-            // TODO apply condition strength
-            conditionStrength = game.conditionStrengths[condition];
-            applyEffect(game, effect);
-        }
-    }
-}
 
 export function initialiseState(game) {
     game.skills = game.skills || {};

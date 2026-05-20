@@ -79,7 +79,7 @@ export const game = {
   
   actionCompletions: {},
   actionProgresses: {},
-
   actionSkillFactors: {},
+  
   conditionStrengths: {},
 };
