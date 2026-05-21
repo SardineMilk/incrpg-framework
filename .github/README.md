@@ -2,7 +2,7 @@
   IncRPG (WIP)
 </h1>
 
-Incremental RPG (IncRPG) is a semi-idle text-based rpg inspired by [Proto 23](https://23html.github.io/) and [Yet Another Idle RPG](https://miktaew.github.io/yet-another-idle-rpg/).
+IncRPG (Incredible Rat Punching Game) is a semi-idle text-based rpg inspired by [Proto 23](https://23html.github.io/) and [Yet Another Idle RPG](https://miktaew.github.io/yet-another-idle-rpg/).
 
 It features a robust data-driven config system that allows new content to be rapidly created without increasing backend complexity and tech-debt.
 
@@ -16,7 +16,7 @@ Conditions
 
 ## Running
 ### Run Locally
-Incremental RPG is written using HTML, CSS and vanilla JS only.
+IncRPG is written using HTML, CSS and vanilla JS only.
 
 This means running the game locally is simple: Just open index.html in a live server.
 
