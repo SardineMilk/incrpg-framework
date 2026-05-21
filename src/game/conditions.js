@@ -1,4 +1,5 @@
-import { eff } from "./effects";
+import { eff } from "./effects.js";
+import { CONDITIONS } from "../data/conditionsData.js";
 
 export function applyConditionEffects(game, condition) {
     for (const effect in CONDITIONS[condition].effects) {
@@ -8,7 +9,6 @@ export function applyConditionEffects(game, condition) {
     }
     
 }
-
 
 export function removeConditionEffects(game, condition) {
     for (const effect in CONDITIONS[condition].effects) {

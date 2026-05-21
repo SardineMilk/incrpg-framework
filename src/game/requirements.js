@@ -35,7 +35,7 @@ function meets(requirement) {
 
 export function meetsRequirements(game, action) {
   // Actions can have multiple viable requirements
-  // Climbing - is mountain or is forest
+  // Top level OR, inside requirement AND
   for (const requirement in action.requirements) {
     if (meets(requirement)) return true;
   }
