@@ -1,7 +1,7 @@
-import { SKILLS } from "../data/skills.js";
-import { ACTIONS } from "../data/actions.js";
-import { CONDITIONS } from "../data/conditions.js";
-import { TRAITS } from "../data/traits.js";
+import { SKILLS } from "../data/skillsData.js";
+import { ACTIONS } from "../data/actionsData.js";
+import { CONDITIONS } from "../data/conditionsData.js";
+import { TRAITS } from "../data/traitsData.js";
 import { applyEffect } from "../game/effects.js";
 
 function calculateActionSkillFactor(game, action) {

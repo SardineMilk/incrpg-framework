@@ -10,7 +10,6 @@ Trait effects are applied once when first gained
 Action tick effects and result effects are applied by the tick functions as required
 */
 
-import { removeConditionEffects } from "../utils/state_creator.js";
 import { grantSkillXp } from "./skills.js";
 
 // Object that has functions as parameters that return standard structured object which can be used by applyEffect
@@ -140,21 +139,4 @@ export function removeEffect(game, effect) {
 }
 
 
-export function applyConditionEffects(game, condition) {
-    for (const effect in CONDITIONS[condition].effect) {
-        // TODO apply condition strength
-        conditionStrength = game.conditionStrengths[condition];
-        applyEffect(game, effect);
-    }
-    
-}
-
-
-export function removeConditionEffects(game, condition) {
-    for (const effect in CONDITIONS[condition].effect) {
-        // TODO apply condition strength
-        conditionStrength = game.conditionStrengths[condition];
-        removeEffect(game, effect);
-    }
-}
 

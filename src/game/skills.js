@@ -1,4 +1,4 @@
-import { SKILLS } from "../data/skills.js";
+import { SKILLS } from "../data/skillsData.js";
 
 export function xpToNext(level) {
   // xpToNext = Math.floor(scalingFactor * Math.pow(2, level/5));

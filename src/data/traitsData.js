@@ -5,7 +5,7 @@ export const TRAITS = {
     combat_1: {
         name: "Battle Hardened 1", 
         description: "You've had a small taste of combat. You're no longer completely lost when fighting. Lowers passive mental and stamina drain of combat.",
-        effects:[eff.conditionStrength("combat_fatigue", 0.5), eff.skillMultiplier("exercise", 10)], 
+        effects:[eff.conditionStrength("combat_fatigue", 0.5), eff.skillXpMultiplier("exercise", 10)], 
     },
     combat_2: {
         name: "Battle Hardened 2", 

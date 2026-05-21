@@ -1,16 +1,14 @@
-import { ACTIONS } from "../data/actions.js";
+import { ACTIONS } from "../data/actionsData.js";
 import { applyEffect } from "./effects.js";
 import { grantSkillXp } from "./skills.js";
 import { game } from "./state.js";
-import { initialiseState, calculateActionSkillFactors, applyTraitEffects, applyConditionEffects } from "../utils/state_creator.js";
+import { initialiseState, calculateActionSkillFactors} from "../utils/state_creator.js";
 
 
 const TICK_RATE = 1000 / 20;
 
 export function startTicking(render) {
   initialiseState(game);
-  applyTraitEffects(game);
-  applyConditionEffects(game);
   calculateActionSkillFactors(game);
   setInterval(() => {
     tick();
@@ -57,7 +55,7 @@ function processAction() {
     for (const effect of action.result) {
       applyEffect(game, effect);
     }
-    game.actionCompletions++;
+    game.actionCompletions[current_id]++;
     game.actionProgresses[current_id] = 0;
   }
 }

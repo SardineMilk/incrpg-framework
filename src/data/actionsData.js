@@ -32,6 +32,7 @@ export const ACTIONS = {
 
     result: [
       eff.sendMessage("Result", "You went for a short run"),
+      eff.changeResource("health", -1),
     ]
 
   },

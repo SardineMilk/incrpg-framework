@@ -82,4 +82,8 @@ export const game = {
   actionSkillFactors: {},
   
   conditionStrengths: {},
+
+  eventEffects: {
+    tick: [],
+  },
 };
