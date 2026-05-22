@@ -3,13 +3,13 @@ import { game } from "../game/state.js";
 export function renderHero() {
 
   document.getElementById("health-bar").innerText =
-    `HP ${Math.floor(game.resources.health.current)} / ${game.resources.health.baseMax}`;
+    `HP ${Math.floor(game.resources.health.current)} / ${game.resources.health.valueMax}`;
 
   document.getElementById("stamina-bar").innerText =
-    `SP ${Math.floor(game.resources.stamina.current)} / ${game.resources.stamina.baseMax}`;
+    `SP ${Math.floor(game.resources.stamina.current)} / ${game.resources.stamina.valueMax}`;
 
   document.getElementById("mental-bar").innerText =
-    `MP ${Math.floor(game.resources.mental.current)} / ${game.resources.mental.baseMax}`;
+    `MP ${Math.floor(game.resources.mental.current)} / ${game.resources.mental.valueMax}`;
 
   document.getElementById("money-box").innerText =
     `${game.resources.gold} gold`;
@@ -30,7 +30,7 @@ function renderStats() {
     div.className = "attribute-box";
 
     div.innerText =
-      `${capitalize(name)}: ${game.attributes[name].base}`;
+      `${capitalize(name)}: ${game.attributes[name].value}`;
 
     box.appendChild(div);
   }

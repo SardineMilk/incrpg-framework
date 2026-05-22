@@ -1,4 +1,5 @@
 import { SKILLS } from "../data/skillsData.js";
+import { LogType } from "./log.js";
 
 export function xpToNext(level) {
   // xpToNext = Math.floor(scalingFactor * Math.pow(2, level/5));
@@ -19,7 +20,8 @@ export function grantSkillXp(game, skillId, amount) {
     skill.xp -= xpToNext(skill.level);
     skill.level++;
 
-    console.log(`${SKILLS[skillId].name} leveled to ${skill.level}. XP to next: ${xpToNext(skill.level)}`);
+    const skillMessage = `Skill Level: ${SKILLS[skillId].name} leveled to ${skill.level}`
+    game.log.append(LogType.SKILL, skillMessage);
   }
 
   // Should this be `amount` or `xpForSkill`?

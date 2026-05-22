@@ -6,54 +6,63 @@ export const game = {
   resources: {
     health: {
       current: 100,
-      baseMax: 100,
+      valueMax: 100,
       multiplier: 1,
     },
 
     stamina: {
       current: 100,
-      baseMax: 100,
+      valueMax: 100,
       multiplier: 1,
     },
 
     mental: {
       current: 100,
-      baseMax: 100,
+      valueMax: 100,
       multiplier: 1,
     },
   },
 
+  // Do we need value?
   attributes: {
     strength: {
-      base:10,
+      value:0,
+      flat:10,
       multiplier:1,
     },
     constitution: {
-      base:10,
+      value:0,
+      flat:10,
       multiplier:1,
     },
     agility: {
-      base:10,
+      value:0,
+      flat:10,
       multiplier:1,
     },
     dexterity: {
-      base:10,
+      value:0,
+      flat:10,
       multiplier:1,
     },
     intelligence: {
-      base:10,
+      value:0,
+      flat:10,
       multiplier:1,
     },
     willpower: {
-      base:10,
+      value:0,
+      flat:10,
       multiplier:1,
     },
     wit: {
-      base:10,
+      value:0,
+      flat:10,
       multiplier:1,
     },
     perception: {
-      base:10,
+      value:0,
+      flat:10,
       multiplier:1,
     },
   },
@@ -76,10 +85,13 @@ export const game = {
 
   activeAction: "jogging",
 
-  
-  actionCompletions: {},
-  actionProgresses: {},
-  actionSkillFactors: {},
+  actions: {
+    jogging: {
+      progress: 0,
+      completions: 0,
+      competency: 1,
+    }
+  },
   
   conditionStrengths: {},
 

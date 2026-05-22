@@ -3,7 +3,7 @@ export const SKILLS = {
   combat: {
     name: "Combat",
     description: "Pit your mind and body against another in battle.",
-    parent: null,
+    parent:null,
     milestones: {
       3:"battle_hardened_1",
       10:"battle_hardened_2",
@@ -80,7 +80,7 @@ export const SKILLS = {
   recovery: {
     name:"Recovery",
     description:"Restore yourself to peak condition. Should you be proud of this skill?",
-    parent: null,
+    parent:null,
   },
   regeneration: {
     name: "Regeneration",
@@ -101,7 +101,7 @@ export const SKILLS = {
   resting: {
     name:"Resting",
     description:"Do nothing. Faster.",
-    parent: null,
+    parent:null,
   },
   meditation: {
     name: "Meditation",
@@ -130,9 +130,32 @@ export const SKILLS = {
     parent:"training",
   },
 
+
+  traversal: {
+    name: "Traversal",
+    description: "Move from point A to point B. Do it faster.",
+    parent:null
+  },
   running: {
     name: "Running",
-    description: "Maybe it'll save your life someday",
-    parent: null,
-  }
+    description: "Run, run, as fast as you can. Maybe it'll save your life someday",
+    parent:"traversal",
+  },
+  walking: {
+    name: "Walking",
+    description: "The difference between a lovely stroll and miserable slog is a thin line. Use the line to lace your boots.",
+    parent:"traversal",
+  },
+  climbing: {
+    name: "Climbing",
+    description: "Learn how to cling to a vertical surface without exhausting yourself.",
+    parent:"traversal",
+  },
+
+  labour: {},
+  hauling: {},
+  gathering: {},
+  woodcutting: {},
+  harvesting: {},
+  mining: {},
 };

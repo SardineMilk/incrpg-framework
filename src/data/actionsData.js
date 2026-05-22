@@ -31,21 +31,31 @@ export const ACTIONS = {
     ],
 
     result: [
-      eff.sendMessage("Result", "You went for a short run"),
+      //eff.sendMessage("Result", "You went for a short run"),
       eff.changeResource("health", -1),
+      eff.grantSkillXp("running", 20),
+      eff.grantSkillXp("exercise", 10),
     ]
 
   },
 
   trainSword: {
     name: "Train Sword",
-
     duration: 30,
-
     requirements: [
       [req.item("sword"), req.location("village"),]
     ],
 
+    attributes: {
+      strength: 0.7,
+      constitution: 0.5,
+      agility: 0.7,
+      dexterity: 0.5,
+      intelligence: 0.2,
+      willpower: 0.2,
+      wit: 0.2,
+      perception: 0.2,
+    },
 
     skills: {
       sword: 1,
@@ -62,6 +72,18 @@ export const ACTIONS = {
     name: "Meditate",
 
     duration: 50,
+
+    attributes: {
+      strength: 0,
+      constitution: 0.2,
+      agility: 0,
+      dexterity: 0,
+      intelligence: 0.5,
+      willpower: 1,
+      wit: 0.5,
+      perception: 0.2,
+    },
+
 
     skills: {
       meditation: 1,
