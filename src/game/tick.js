@@ -5,20 +5,35 @@ import { game } from "./state.js";
 import { initialiseState, calculateActionsCompetency} from "../utils/state_creator.js";
 import { applyConditionEffects } from "./conditions.js";
 import { LogType, EventLog } from "./log.js";
+import { setIntervalFix, clearIntervalFix } from "../utils/throttleFix.js";
 
 
 const TICK_RATE = 1000 / 20;
 
+let intervalId = null;
 export function startTicking(render) {
   initialiseState(game);
 
+  // TODO factor this out
   game.log = new EventLog({container: document.getElementById("log-box")})
   game.log.container.scrollTop = game.log.container.scrollHeight;
   game.log.followTail = true;
-  setInterval(() => {
+
+  if (intervalId !== null) {
+    setIntervalFix(intervalId);
+  }
+
+  intervalId = setIntervalFix(() => {
     tick();
     render();
   }, TICK_RATE);
+
+  return () => {
+    if (intervalId !== null) {
+      clearIntervalFix(intervalId);
+      intervalId = null;
+    }
+  };
 }
 
 function tick() {
