@@ -48,6 +48,10 @@ function processAction() {
 
   let duration = action.duration / game.actions[current_id].competency;
 
+  for (const attribute in action.attributes) {
+    grantSkillXp(game, attribute, action.attributes[attribute]);
+  }
+
   for (const effect of action.tick) {
     applyEffect(game, effect);
   } 
@@ -67,6 +71,7 @@ function processAction() {
 function calculateAttributes(game) {
   for (const name in game.attributes) {
     const attribute = game.attributes[name];
-    attribute.value = attribute.flat * attribute.multiplier;
+    const base = attribute.flat + game.skills[name].level;
+    attribute.value = base * attribute.multiplier;
   }
 }
