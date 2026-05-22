@@ -1,9 +1,18 @@
 :root {
+    /* Light Theme */
+    /*
     --colour-background: #f4f4f4;
     --colour-surface: #fff;
     --colour-primary: #eee;
     --colour-border: #ddd;
     --colour-text: #333;
+    */
+    /* Dark Theme */
+    --colour-background: #111827;
+    --colour-surface: #1f2937;
+    --colour-primary: #2563eb;
+    --colour-border: #374151;
+    --colour-text: #f3f4f6;
 }
 
 
