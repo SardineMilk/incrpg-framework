@@ -20,7 +20,7 @@ export function grantSkillXp(game, skillId, amount) {
     skill.xp -= xpToNext(skill.level);
     skill.level++;
 
-    const skillMessage = `Skill Level: ${SKILLS[skillId].name} leveled to ${skill.level}`
+    const skillMessage = `${SKILLS[skillId].name} leveled to ${skill.level}`
     game.log.append(LogType.SKILL, skillMessage);
   }
 
