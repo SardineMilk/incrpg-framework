@@ -85,6 +85,8 @@ footer {
     background-color: var(--colour-surface);
     padding: 1rem;
     border-top: 1px solid var(--colour-border);
+    display: flex;
+    justify-content: space-between;
     text-align: center;
 }
 
@@ -97,4 +99,10 @@ footer {
     background-color: var(--colour-surface);
     padding: 0.5rem;
     border-radius: 8px;
+}
+
+.github-logo {
+    width: 36px;
+    height: 36px;
+
 }

@@ -17,6 +17,12 @@ export const req = {
 };
 
 
+// TODO
+// Should this be 
+// [x AND y] OR [z AND w]
+// [x OR y] AND [z OR w]
+// second would allow things like [some matching location] AND [some way to gather]
+
 function meets(requirement) {
   return action.requirements.every(r => {
     switch (r.type) {
