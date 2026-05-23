@@ -119,7 +119,7 @@ export function applyEffect(game, effect) {
             break;
         case "setActiveAction":
             game.activeAction = effect.action;
-            break;
+            break;  
         default:
             console.warn("Unknown effect type:", effect.type);
     }
