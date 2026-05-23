@@ -54,7 +54,7 @@ header {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.name-box, .xp-bar, .health-bar, .stamina-bar, .mental-bar, .money-box {
+.name-box, .health-bar, .stamina-bar, .mental-bar, .money-box {
     margin-bottom: 0.5rem;
     padding: 0.5rem;
     background-color: var(--colour-primary);
