@@ -205,5 +205,43 @@ export const SKILLS = {
     parent: "gathering",
     milestones: {5:"mining_1",10:"mining_2",20:"mining_3",40:"mining_4",80:"mining_5"},
   },
+  fishing: {
+    name: "Fishing",
+    description: "Convince a creature with a brain the size of a pebble to let you grab it from the water.",
+    parent: "gathering",
+    milestones: {5:"fishing_1",10:"fishing_2",20:"fishing_3",40:"fishing_4",80:"fishing_5"},
+  },
+
+
+  crafting: {
+    name: "Crafting",
+    description: "Transform raw materials into something more useful. Hopefully.",
+    parent: null,
+    milestones: {5:"crafting_1",10:"crafting_2",20:"crafting_3",40:"crafting_4",80:"crafting_5"},
+  },
+  carpentry: {
+    name: "Carpentry",
+    description: "Cut wood into smaller pieces and somehow end up with furniture.",
+    parent: "crafting",
+    milestones: {5:"carpentry_1",10:"carpentry_2",20:"carpentry_3",40:"carpentry_4",80:"carpentry_5"},
+  },
+  stoneworking: {
+    name: "Stoneworking",
+    description: "Rock is stubborn. Be more stubborn.",
+    parent: "crafting",
+    milestones: {5:"stoneworking_1",10:"stoneworking_2",20:"stoneworking_3",40:"stoneworking_4",80:"stoneworking_5"},
+  },
+  smithing: {
+    name: "Smithing",
+    description: "Turns out you're not actually meant to heat iron `red-hot`. Temper your expectations",
+    parent: "crafting",
+    milestones: {5:"smithing_1",10:"smithing_2",20:"smithing_3",40:"smithing_4",80:"smithing_5"},
+  },
+  cooking: {
+    name: "Cooking",
+    description: "Improve food through the careful application of heat. Usually.",
+    parent: "crafting",
+    milestones: {5:"cooking_1",10:"cooking_2",20:"cooking_3",40:"cooking_4",80:"cooking_5"},
+  },
 
 };

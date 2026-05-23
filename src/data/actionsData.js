@@ -7,7 +7,7 @@ export const ACTIONS = {
     name: "Jogging",
     duration: 20,
     requirements: [
-      req.location("village"),
+      req.location("outside"),
     ],
 
     attributes: {
@@ -36,7 +36,39 @@ export const ACTIONS = {
       eff.grantSkillXp("running", 20),
       eff.grantSkillXp("exercise", 10),
     ]
+  },
 
+  calisthenics: {
+    name: "Calisthenics",
+    duration: 20,
+    requirements: [
+      req.location("outside"),
+    ],
+
+    attributes: {
+      strength: 1,
+      constitution: 0.5,
+      agility: 0.2,
+      dexterity: 0.5,
+      intelligence: 0,
+      willpower: 0.2,
+      wit: 0,
+      perception: 0,
+    },
+
+    skills: {
+      exercise:1,
+    },
+
+    tick: [
+      eff.changeResource("stamina", -2),
+    ],
+
+    result: [
+      //eff.sendMessage("Result", "You went for a short run"),
+      eff.changeResource("health", -1),
+      eff.grantSkillXp("exercise", 10),
+    ]
   },
 
   trainSword: {
