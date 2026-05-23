@@ -46,11 +46,11 @@ function meetsRequirement(game, requirement) {
     case "stat":
       return (game.attributes[requirement.stat]?.value || 0) >= requirement.value;
     case "resourceLessThan":
-      const resourceVal = game.resources[requirement.resource].value;
+      const resourceVal = game.resources[requirement.resource].current;
       const resourceMax = game.resources[requirement.resource].max;
       // If value positive 
       if (requirement.value >= 0) return resourceVal < requirement.value;
-      else return resourceVal < resourceMax - requirement.value;
+      else return resourceVal < resourceMax - (requirement.value + 1);
     default:
       return false;
   }

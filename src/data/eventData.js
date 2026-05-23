@@ -48,7 +48,7 @@ export const EVENT_EFFECTS = {
         ],
         effects: [
             eff.setActiveAction("sleeping"),
-            eff.sendMessage("SYSTEM", "You passed out"),
+            eff.sendMessage("SYSTEM", "You pass out"),
         ]
     }
 }

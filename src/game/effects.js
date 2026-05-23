@@ -43,8 +43,8 @@ export const eff = {
         duration,
     }),
 
-    conditionStrength: (condition, multiplier) => ({
-        type: "conditionStrength",
+    changeConditionStrength: (condition, multiplier) => ({
+        type: "changeConditionStrength",
         condition,
         multiplier,
     }),
@@ -96,8 +96,9 @@ export function applyEffect(game, effect) {
             game.activeConditions[effect.condition] += effect.duration;
             applyConditionEffects(game, effect);
             break;
-        case "conditionStrength":
-            game.conditionStrengths[effect.condition] = (game.conditionStrengths[effect.condition] || 1) * effect.multiplier;
+        case "changeConditionStrength":
+            game.conditionStrengths[effect.condition] = game.conditionStrengths[effect.condition] || 1
+            game.conditionStrengths[effect.condition] += effect.multiplier;
             break;
         case "changeResource":
             game.resources[effect.resource].current += effect.amount;
@@ -118,6 +119,7 @@ export function applyEffect(game, effect) {
             break;
         case "setActiveAction":
             game.activeAction = effect.action;
+            break;
         default:
             console.warn("Unknown effect type:", effect.type);
     }

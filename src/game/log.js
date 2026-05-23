@@ -51,7 +51,6 @@ export class EventLog {
 
     append(type, text) {
         const event = { type, text };
-        console.log(event);
 
         this.events.push(event);
 

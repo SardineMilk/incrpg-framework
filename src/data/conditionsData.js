@@ -12,7 +12,7 @@ export const CONDITIONS = {
     chilly: {
         name:"Chilly",
         description:"You feel chilly. You move and regenerate stamina slightly slower",
-        effects: [eff.changeAttribute("agility", 0, -0.1), eff.conditionStrength("stamina_regen", 0.9)],
+        effects: [eff.changeAttribute("agility", 0, -0.1), eff.changeConditionStrength("stamina_regen", -0.1)],
         duration: 60,
     },
 

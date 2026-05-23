@@ -70,7 +70,6 @@ function checkEventConditions(game, previousState) {
     const eventDef = game.eventEffects[key];
     if (!eventDef || !Array.isArray(eventDef.event)) continue;
     if (!meetsRequirements(game, eventDef)) continue;
-
     for (const condition of eventDef.event) {
       const handler = eventHandlers[condition.type];
       if (handler && handler(game, condition, previousState)) {
@@ -92,7 +91,6 @@ export function processEventQueue(game, previousState) {
   // Process queue - effects may trigger new events
   while (eventQueue.length > 0) {
     const { effects } = eventQueue.shift();
-    
     const stateBeforeEffect = JSON.parse(JSON.stringify(game));
     
     for (const effect of effects) {

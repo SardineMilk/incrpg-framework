@@ -119,9 +119,9 @@ export const ACTIONS = {
 
 
     tick: [
-      eff.changeResource("health", 10),
-      eff.changeResource("stamina", 10),
-      eff.changeResource("mental", 10),
+      eff.changeConditionStrength("health_regen", 10),
+      eff.changeConditionStrength("stamina_regen", 10),
+      eff.changeConditionStrength("mental_regen", 10),
     ],
 
     result: [
