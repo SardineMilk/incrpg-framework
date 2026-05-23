@@ -101,6 +101,16 @@ footer {
     border-radius: 8px;
 }
 
+.log-element {
+    box-sizing: border-box;
+    padding: 0.5rem;
+    background-color: var(--colour-background);
+    border: 1px solid var(--colour-border);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    outline: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .logo {
     width: 36px;
     height: 36px;

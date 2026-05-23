@@ -51,6 +51,8 @@ function tick() {
     applyConditionEffects(game, condition);
   }
 
+  // TODO apply skill milestones
+
   calculateAttributes(game);
 
   calculateActionsCompetency(game);

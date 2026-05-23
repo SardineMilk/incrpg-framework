@@ -30,6 +30,7 @@ export function renderLog(game) {
 
         if (!node) {
             node = document.createElement("div");
+            node.className = "log-element"
 
             node.style.position = "absolute";
             node.style.left = "0";

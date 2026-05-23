@@ -10,9 +10,6 @@ Trait effects are applied once when first gained
 Action tick effects and result effects are applied by the tick functions as required
 */
 
-// TODO add
-// set active action
-
 import { LogType } from "./log.js";
 import { grantSkillXp } from "./skills.js";
 
@@ -94,7 +91,6 @@ export function applyEffect(game, effect) {
         case "applyCondition":
             game.activeConditions[effect.condition] ??= 0;
             game.activeConditions[effect.condition] += effect.duration;
-            applyConditionEffects(game, effect);
             break;
         case "changeConditionStrength":
             game.conditionStrengths[effect.condition] = game.conditionStrengths[effect.condition] || 1

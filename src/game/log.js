@@ -10,7 +10,7 @@ export const LogType = {
 export class EventLog {
     constructor({
         container,
-        rowHeight = 22,
+        rowHeight = 40,
         overscan = 20
     }) {
         if (!container) throw new Error("EventLog requires a valid container");
