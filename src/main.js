@@ -4,5 +4,4 @@ import { render } from "./ui/render.js";
 
 window.game = game;
 
-render();
 startTicking(render);

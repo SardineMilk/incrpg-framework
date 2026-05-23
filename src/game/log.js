@@ -6,12 +6,14 @@ export const LogType = {
     SYSTEM:   1 << 4
 };
 
+
 export class EventLog {
     constructor({
         container,
         rowHeight = 22,
         overscan = 20
     }) {
+        if (!container) throw new Error("EventLog requires a valid container");
         this.container = container;
         this.rowHeight = rowHeight;
         this.overscan = overscan;
@@ -44,19 +46,17 @@ export class EventLog {
                 this.container.clientHeight >=
                 this.container.scrollHeight - threshold;
 
-            this.render();
         });
     }
 
     append(type, text) {
         const event = { type, text };
+        console.log(event);
 
         this.events.push(event);
 
         this.viewport.style.height =
             `${this.events.length * this.rowHeight}px`;
-
-        this.render();
 
         // Follow new entries only if the user was
         // already looking at the bottom.
@@ -66,60 +66,4 @@ export class EventLog {
         }
     }
 
-    render() {
-        const scrollTop = this.container.scrollTop;
-        const height = this.container.clientHeight;
-
-        const first =
-            Math.max(
-                0,
-                Math.floor(scrollTop / this.rowHeight) -
-                this.overscan
-            );
-
-        const last =
-            Math.min(
-                this.events.length,
-                Math.ceil(
-                    (scrollTop + height) /
-                    this.rowHeight
-                ) + this.overscan
-            );
-
-        const needed = new Set();
-
-        for (let row = first; row < last; row++) {
-            needed.add(row);
-
-            let node = this.visibleNodes.get(row);
-
-            if (!node) {
-                node = document.createElement("div");
-
-                node.style.position = "absolute";
-                node.style.left = "0";
-                node.style.right = "0";
-                node.style.height =
-                    `${this.rowHeight}px`;
-
-                this.content.appendChild(node);
-
-                this.visibleNodes.set(row, node);
-            }
-
-            const event = this.events[row];
-
-            node.style.transform =
-                `translateY(${row * this.rowHeight}px)`;
-
-            node.textContent = event.text;
-        }
-
-        for (const [row, node] of this.visibleNodes) {
-            if (!needed.has(row)) {
-                node.remove();
-                this.visibleNodes.delete(row);
-            }
-        }
-    }
 }

@@ -6,19 +6,19 @@ export const game = {
   resources: {
     health: {
       current: 100,
-      valueMax: 100,
+      max: 100,
       multiplier: 1,
     },
 
     stamina: {
       current: 100,
-      valueMax: 100,
+      max: 100,
       multiplier: 1,
     },
 
     mental: {
       current: 100,
-      valueMax: 100,
+      max: 100,
       multiplier: 1,
     },
   },

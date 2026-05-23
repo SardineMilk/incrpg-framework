@@ -14,36 +14,60 @@ export const req = {
     stat,
     value,
   }),
+
+  // If value is negative, it's treated as `resource.max - value`
+  resourceLessThan: (resource, value) => ({
+    type: "resourceLessThan",
+    resource,
+    value,
+  }),
 };
+
+// TODO add 
+// resource under max
+// resource over max
+// resource under 0
 
 
 // TODO
 // Should this be 
 // [x AND y] OR [z AND w]
 // [x OR y] AND [z OR w]
+// first would be more intuitive
 // second would allow things like [some matching location] AND [some way to gather]
 
-function meets(requirement) {
-  return action.requirements.every(r => {
-    switch (r.type) {
-      case "item":
-        return game.inventory[r.item] > 0;
-      case "location":
-        // TODO allow location tags. e.g. aquatic, settlement, indoors
-        return game.location === r.location;
-      case "stat":
-        return game.stats[r.stat] >= r.value;
-      default:
-        return false;
-    }
-  });
+
+function meetsRequirement(game, requirement) {
+  switch (requirement.type) {
+    case "item":
+      return (game.inventory[requirement.item] || 0) > 0;
+    case "location":
+      return game.location === requirement.location;
+    case "stat":
+      return (game.attributes[requirement.stat]?.value || 0) >= requirement.value;
+    case "resourceLessThan":
+      const resourceVal = game.resources[requirement.resource].value;
+      const resourceMax = game.resources[requirement.resource].max;
+      // If value positive 
+      if (requirement.value >= 0) return resourceVal < requirement.value;
+      else return resourceVal < resourceMax - requirement.value;
+    default:
+      return false;
+  }
+}
+
+function meetsRequirementsGroup(game, requirements) {
+  return requirements.every((requirement) => meetsRequirement(game, requirement));
 }
 
 export function meetsRequirements(game, action) {
-  // Actions can have multiple viable requirements
-  // Top level OR, inside requirement AND
-  for (const requirement in action.requirements) {
-    if (meets(requirement)) return true;
+  if (!action.requirements || action.requirements.length === 0) return true;
+
+  if (Array.isArray(action.requirements[0])) {
+    return action.requirements.some((group) =>
+      Array.isArray(group) && meetsRequirementsGroup(game, group)
+    );
   }
-  return false;
+
+  return meetsRequirementsGroup(game, action.requirements);
 }

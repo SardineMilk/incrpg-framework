@@ -1,12 +1,14 @@
 import { ACTIONS } from "../data/actionsData.js";
+import { EVENT_EFFECTS } from "../data/eventData.js";
 import { applyEffect } from "./effects.js";
 import { grantSkillXp } from "./skills.js";
 import { game } from "./state.js";
-import { initialiseState, calculateActionsCompetency} from "../utils/state_creator.js";
+import { initialiseState} from "../utils/state_creator.js";
+import { calculateActionsCompetency } from "./actions.js";
 import { applyConditionEffects } from "./conditions.js";
 import { LogType, EventLog } from "./log.js";
 import { setIntervalFix, clearIntervalFix } from "../utils/throttleFix.js";
-
+import { processEventQueue} from "./events.js"
 
 const TICK_RATE = 1000 / 20;
 
@@ -18,6 +20,10 @@ export function startTicking(render) {
   game.log = new EventLog({container: document.getElementById("log-box")})
   game.log.container.scrollTop = game.log.container.scrollHeight;
   game.log.followTail = true;
+
+  // TODO factor this out
+  game.eventEffects = EVENT_EFFECTS;
+
 
   if (intervalId !== null) {
     setIntervalFix(intervalId);
@@ -37,11 +43,9 @@ export function startTicking(render) {
 }
 
 function tick() {
-  game.tick++;
+  const previousState = JSON.parse(JSON.stringify(game));
 
-  for (const effect of game.eventEffects["tick"]) {
-    applyEffect(game, effect);
-  }
+  game.tick++;
 
   for (const condition in game.activeConditions) {
     applyConditionEffects(game, condition);
@@ -54,6 +58,8 @@ function tick() {
   if (game.activeAction) {
     processAction();
   }
+
+  processEventQueue(game, previousState);
 }
 
 

@@ -27,7 +27,7 @@ export const ACTIONS = {
     },
 
     tick: [
-      eff.changeResource("stamina", -1),
+      eff.changeResource("stamina", -2),
     ],
 
     result: [
@@ -93,6 +93,39 @@ export const ACTIONS = {
     result: [
       eff.changeResource("mental", 10),
       eff.grantSkillXp("meditation", 20),
+    ],
+  },
+
+  sleeping: {
+    name: "Sleeping",
+
+    duration: 100,
+
+    attributes: {
+      strength: 0,
+      constitution: 0.2,
+      agility: 0,
+      dexterity: 0,
+      intelligence: 0,
+      willpower: 0.2,
+      wit: 0,
+      perception: 0,
+    },
+
+
+    skills: {
+      sleeping: 1,
+    },
+
+
+    tick: [
+      eff.changeResource("health", 10),
+      eff.changeResource("stamina", 10),
+      eff.changeResource("mental", 10),
+    ],
+
+    result: [
+      eff.grantSkillXp("sleeping", 20),
     ],
   },
 };

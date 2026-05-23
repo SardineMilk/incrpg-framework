@@ -10,6 +10,9 @@ Trait effects are applied once when first gained
 Action tick effects and result effects are applied by the tick functions as required
 */
 
+// TODO add
+// set active action
+
 import { LogType } from "./log.js";
 import { grantSkillXp } from "./skills.js";
 
@@ -68,6 +71,11 @@ export const eff = {
         event,
         effect,
     }),
+
+    setActiveAction: (action) => ({
+        type: "setActiveAction",
+        action,
+    }),
 };
 
 
@@ -98,24 +106,48 @@ export function applyEffect(game, effect) {
             game.location = effect.location;
             break;
         case "sendMessage":
-            game.log.append({
-                type: LogType.ACTION,
-                text: effect.message,
-            });
+            game.log.append(
+                LogType.ACTION,
+                effect.message,
+            );
             console.log(`${effect.category}: ${effect.message}`);
             break;
         case "addEventEffect":
-            game.eventEffects = game.eventEffects || {};
             game.eventEffects[effect.event] = game.eventEffects[effect.event] || [];
             game.eventEffects[effect.event].push(effect.effect);
             break;
+        case "setActiveAction":
+            game.activeAction = effect.action;
         default:
             console.warn("Unknown effect type:", effect.type);
     }
 }
 
 
-export function changeEffectStrength(game, effect) {
-
+export function changeEffectStrength(game, effect, multiplier) {
+    switch (effect.type) {
+        case "grantSkillXp":
+            effect.baseAmount *= multiplier;
+            break;
+        case "skillXpMultiplier":
+            effect.multiplier *= multiplier;
+            break;
+        case "changeAttribute":
+            effect.flat *= multiplier;
+            effect.multiplier *= multiplier;
+            break;
+        case "applyCondition":
+            effect.duration *= multiplier;
+            applyConditionEffects(game, effect);
+            break;
+        case "conditionStrength":
+            effect.multiplier *= multiplier;
+            break;
+        case "changeResource":
+            effect.amount *= multiplier;
+            break;
+        default:
+            console.warn("Cannot change effect strength of:", effect);
+    }
 }
 

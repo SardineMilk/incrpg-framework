@@ -3,13 +3,13 @@ import { game } from "../game/state.js";
 export function renderHero() {
 
   document.getElementById("health-bar").innerText =
-    `HP ${Math.floor(game.resources.health.current)} / ${game.resources.health.valueMax}`;
+    `HP ${Math.floor(game.resources.health.current)} / ${game.resources.health.max}`;
 
   document.getElementById("stamina-bar").innerText =
-    `SP ${Math.floor(game.resources.stamina.current)} / ${game.resources.stamina.valueMax}`;
+    `SP ${Math.floor(game.resources.stamina.current)} / ${game.resources.stamina.max}`;
 
   document.getElementById("mental-bar").innerText =
-    `MP ${Math.floor(game.resources.mental.current)} / ${game.resources.mental.valueMax}`;
+    `MP ${Math.floor(game.resources.mental.current)} / ${game.resources.mental.max}`;
 
   document.getElementById("money-box").innerText =
     `${game.resources.gold} gold`;
