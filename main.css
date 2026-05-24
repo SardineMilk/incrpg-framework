@@ -73,7 +73,7 @@ header {
     border-radius: 4px;
 }
 
-.skills-box, .actions-box, .tasks-box {
+#skills-box, #actions-box, #tasks-box {
     flex: 1;
     background-color: var(--colour-surface);
     padding: 0.25rem;
@@ -115,4 +115,43 @@ footer {
     width: 36px;
     height: 36px;
 
+}
+
+
+.action-entry {
+    margin-bottom: 0.5rem;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    background-color: var(--colour-background);
+    border: 1px solid var(--colour-border);
+    border-radius: 8px;
+}
+
+.action-button {
+    padding: 0.5rem 0.75rem;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--colour-primary);
+    color: var(--colour-text);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.action-button:hover {
+    filter: brightness(1.08);
+}
+
+
+.action-info {
+    font-size: 0.9rem;
+    color: var(--colour-text);
+    opacity: 0.85;
+}
+
+.active-action {
+    border-color: #60a5fa;
+    background-color: rgba(37, 99, 235, 0.08);
 }

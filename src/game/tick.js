@@ -31,7 +31,7 @@ export function startTicking(render) {
 
   intervalId = setIntervalFix(() => {
     tick();
-    render();
+    render(game);
   }, TICK_RATE);
 
   return () => {
@@ -69,16 +69,18 @@ function processAction() {
   const current_id = game.activeAction;
   const action = ACTIONS[current_id];
 
-  let duration = action.duration / game.actions[current_id].competency;
+  let duration = Math.ceil(action.duration / game.actions[current_id].competency);
 
-  for (const attribute in action.attributes) {
-    grantSkillXp(game, attribute, action.attributes[attribute]);
+  if (action.attributes) {
+    for (const attribute in action.attributes) {
+      grantSkillXp(game, attribute, action.attributes[attribute]);
+    }
   }
-
-  for (const effect of action.tick) {
-    applyEffect(game, effect);
-  } 
-
+  if (action.tick) {
+    for (const effect of action.tick) {
+      applyEffect(game, effect);
+    } 
+  }
   game.actions[current_id].progress += 1;
   if (game.actions[current_id].progress >= duration) {
     for (const effect of action.result) {

@@ -1,6 +1,4 @@
-import { game } from "../game/state.js";
-
-export function renderHero() {
+export function renderHero(game) {
 
   document.getElementById("health-bar").innerText =
     `HP ${Math.floor(game.resources.health.current)}/${game.resources.health.max}`;
@@ -15,10 +13,10 @@ export function renderHero() {
   document.getElementById("money-box").innerText =
     `${game.resources.gold} gold`;
   */
-  renderStats();
+  renderStats(game);
 }
 
-function renderStats() {
+function renderStats(game) {
 
   const box = document.getElementById("stats-box");
 

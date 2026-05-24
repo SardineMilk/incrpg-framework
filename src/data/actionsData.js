@@ -122,8 +122,11 @@ export const ACTIONS = {
       breathing: 0.5,
     },
 
+    tick: [
+      eff.changeResource("mental", -2),
+    ],
+
     result: [
-      eff.changeResource("mental", 10),
       eff.grantSkillXp("meditation", 20),
     ],
   },
