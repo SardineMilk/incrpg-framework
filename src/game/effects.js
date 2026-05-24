@@ -93,8 +93,8 @@ export function applyEffect(game, effect) {
             game.activeConditions[effect.condition] += effect.duration;
             break;
         case "changeConditionStrength":
-            game.conditionStrengths[effect.condition] = game.conditionStrengths[effect.condition] || 1
-            game.conditionStrengths[effect.condition] += effect.multiplier;
+            if (!game.activeConditions[effect.condition]) break;
+            game.activeConditions[effect.condition].strength += effect.multiplier;
             break;
         case "changeResource":
             game.resources[effect.resource].current += effect.amount;
@@ -107,7 +107,6 @@ export function applyEffect(game, effect) {
                 LogType.ACTION,
                 effect.message,
             );
-            console.log(`${effect.category}: ${effect.message}`);
             break;
         case "addEventEffect":
             game.eventEffects[effect.event] = game.eventEffects[effect.event] || [];

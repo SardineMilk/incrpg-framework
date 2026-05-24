@@ -1,10 +1,10 @@
-import { eff } from "./effects.js";
-import { CONDITIONS } from "../data/conditionsData.js";
+import { EFFECTS } from "../data/effectsData.js";
+import { applyEffect } from "./effects.js";
 
 export function applyConditionEffects(game, condition) {
-    for (const effect in CONDITIONS[condition].effects) {
+    let conditionStrength = game.activeConditions[condition].strength;
+    for (const effect of EFFECTS[condition].effects) {
         // TODO apply condition strength
-        conditionStrength = game.conditionStrengths[condition];
         applyEffect(game, effect);
     }
 }

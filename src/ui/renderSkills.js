@@ -1,5 +1,5 @@
 import { SKILLS } from "../data/skillsData.js";
-
+import { xpToNext } from "../game/skills.js";
 
 
 export function renderSkills(game) {
@@ -41,7 +41,7 @@ export function renderSkills(game) {
             info = entry.querySelector(".skill-info");
         }
 
-        info.innerText = `${skill.name}: ${state.level}, ${Math.round(state.xp)}`;
+        info.innerText = `${skill.name}: ${state.level}, ${Math.round(state.xp)}/${xpToNext(state.level)}`;
     }
 
 }

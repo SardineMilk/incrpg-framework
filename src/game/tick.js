@@ -1,5 +1,5 @@
 import { ACTIONS } from "../data/actionsData.js";
-import { EVENT_EFFECTS } from "../data/eventData.js";
+import { EFFECTS } from "../data/effectsData.js";
 import { applyEffect } from "./effects.js";
 import { grantSkillXp } from "./skills.js";
 import { game } from "./state.js";
@@ -22,7 +22,11 @@ export function startTicking(render) {
   game.log.followTail = true;
 
   // TODO factor this out
-  game.eventEffects = EVENT_EFFECTS;
+  game.activeConditions["health_regen"] = {strength:1};
+  game.activeConditions["stamina_regen"] = {strength:1};
+  game.activeConditions["mental_regen"] = {strength:1};
+  game.activeConditions["death"] = {strength:1};
+
 
 
   if (intervalId !== null) {
@@ -48,6 +52,7 @@ function tick() {
   game.tick++;
 
   for (const condition in game.activeConditions) {
+    if (EFFECTS[condition].event) continue;
     applyConditionEffects(game, condition);
   }
 

@@ -1,5 +1,6 @@
 import { meetsRequirements } from "./requirements.js";
 import { applyEffect } from "./effects.js";
+import { EFFECTS } from "../data/effectsData.js";
 
 export const evt = {
   resourceDropsBelowThreshold: (resource, threshold) => ({
@@ -66,21 +67,26 @@ export const eventHandlers = {
 
 function checkEventConditions(game, previousState) {
   const triggeredEvents = [];
-  for (const key in game.eventEffects) {
-    const eventDef = game.eventEffects[key];
-    if (!eventDef || !Array.isArray(eventDef.event)) continue;
-    if (!meetsRequirements(game, eventDef)) continue;
-    for (const condition of eventDef.event) {
-      const handler = eventHandlers[condition.type];
-      if (handler && handler(game, condition, previousState)) {
-        triggeredEvents.push({ effects: eventDef.effects });
+  for (const conditionId in game.activeConditions) {
+    const condition = EFFECTS[conditionId];
+    if (!Array.isArray(condition.event)) continue;
+    if (!meetsRequirements(game, condition)) continue;
+
+    for (const triggerEvent of condition.event) {
+      const handler = eventHandlers[triggerEvent.type];
+      if (!handler) console.warn("Condition trigger event has no handler: ", triggerEvent);
+      if (handler(game, triggerEvent, previousState)) {
+        triggeredEvents.push(condition);
         break;
       }
-    }
+    } 
+
+
   }
 
   return triggeredEvents;
 }
+
 
 export function processEventQueue(game, previousState) {
   const eventQueue = [];
@@ -90,10 +96,10 @@ export function processEventQueue(game, previousState) {
 
   // Process queue - effects may trigger new events
   while (eventQueue.length > 0) {
-    const { effects } = eventQueue.shift();
+    const triggeredCondition = eventQueue.shift();
     const stateBeforeEffect = JSON.parse(JSON.stringify(game));
     
-    for (const effect of effects) {
+    for (const effect of triggeredCondition.effects) {
       applyEffect(game, effect);
     }
     

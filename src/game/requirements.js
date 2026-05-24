@@ -24,10 +24,8 @@ export const req = {
 };
 
 // TODO add 
-// resource under max
-// resource over max
-// resource under 0
-
+// resourceGreaterThan
+// (not) hasCondition
 
 // TODO
 // Should this be 

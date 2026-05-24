@@ -71,7 +71,14 @@ export const game = {
   ],
 
   activeConditions: {
-    wet: 60,
+    combat_1: {
+      strength: 1,
+    },
+    wet: {
+      duration: 60,
+      strength: 1,
+    },
+
   },
 
   inventory: {
