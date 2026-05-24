@@ -11,8 +11,8 @@ export const EVENT_EFFECTS = {
             req.resourceLessThan("health", -1),
         ],
         effects: [
-            eff.changeResource("health", 1),
-            eff.grantSkillXp("regeneration", 1),
+            eff.changeResource("health", 0.1),
+            eff.grantSkillXp("regeneration", 0.1),
         ],
     },
     stamina_regen: {
@@ -23,8 +23,8 @@ export const EVENT_EFFECTS = {
             req.resourceLessThan("stamina", -1),
         ],
         effects: [
-            eff.changeResource("stamina", 1),
-            eff.grantSkillXp("breathing", 1),
+            eff.changeResource("stamina", 0.1),
+            eff.grantSkillXp("breathing", 0.1),
         ],
     },
     mental_regen: {
@@ -35,8 +35,8 @@ export const EVENT_EFFECTS = {
             req.resourceLessThan("mental", -1),
         ],
         effects: [
-            eff.changeResource("mental", 1),
-            eff.grantSkillXp("mindfulness", 1),
+            eff.changeResource("mental", 0.1),
+            eff.grantSkillXp("mindfulness", 0.1),
         ],
     },
 

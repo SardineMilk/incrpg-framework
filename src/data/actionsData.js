@@ -154,9 +154,7 @@ export const ACTIONS = {
 
 
     tick: [
-      eff.changeConditionStrength("health_regen", 10),
-      eff.changeConditionStrength("stamina_regen", 10),
-      eff.changeConditionStrength("mental_regen", 10),
+      eff.applyCondition("sleeping", 1),
     ],
 
     result: [

@@ -89,8 +89,8 @@ export function applyEffect(game, effect) {
             game.attributes[effect.attribute].multiplier += effect.multiplier;
             break;
         case "applyCondition":
-            game.activeConditions[effect.condition] ??= 0;
-            game.activeConditions[effect.condition] += effect.duration;
+            game.activeConditions[effect.condition] = game.activeConditions[effect.condition] || { duration: 0, strength: 1 };
+            game.activeConditions[effect.condition].duration += effect.duration;
             break;
         case "changeConditionStrength":
             if (!game.activeConditions[effect.condition]) break;

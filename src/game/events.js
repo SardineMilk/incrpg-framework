@@ -1,6 +1,7 @@
 import { meetsRequirements } from "./requirements.js";
 import { applyEffect } from "./effects.js";
 import { EFFECTS } from "../data/effectsData.js";
+import { applyCondition } from "./conditions.js";
 
 export const evt = {
   resourceDropsBelowThreshold: (resource, threshold) => ({
@@ -76,7 +77,7 @@ function checkEventConditions(game, previousState) {
       const handler = eventHandlers[triggerEvent.type];
       if (!handler) console.warn("Condition trigger event has no handler: ", triggerEvent);
       if (handler(game, triggerEvent, previousState)) {
-        triggeredEvents.push(condition);
+        triggeredEvents.push(conditionId);
         break;
       }
     } 
@@ -98,10 +99,7 @@ export function processEventQueue(game, previousState) {
   while (eventQueue.length > 0) {
     const triggeredCondition = eventQueue.shift();
     const stateBeforeEffect = JSON.parse(JSON.stringify(game));
-    
-    for (const effect of triggeredCondition.effects) {
-      applyEffect(game, effect);
-    }
+    applyCondition(game, triggeredCondition);
     
     // Check for newly triggered events after effects applied
     const newEvents = checkEventConditions(game, stateBeforeEffect);

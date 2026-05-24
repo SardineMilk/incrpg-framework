@@ -5,7 +5,7 @@ import { grantSkillXp } from "./skills.js";
 import { game } from "./state.js";
 import { initialiseState} from "../utils/state_creator.js";
 import { calculateActionsCompetency } from "./actions.js";
-import { applyConditionEffects } from "./conditions.js";
+import { applyConditions} from "./conditions.js";
 import { LogType, EventLog } from "./log.js";
 import { setIntervalFix, clearIntervalFix } from "../utils/throttleFix.js";
 import { processEventQueue} from "./events.js"
@@ -51,10 +51,16 @@ function tick() {
 
   game.tick++;
 
-  for (const condition in game.activeConditions) {
-    if (EFFECTS[condition].event) continue;
-    applyConditionEffects(game, condition);
+  for (const conditionId in game.activeConditions) {
+    game.activeConditions[conditionId].strength = 1;
+    if (game.activeConditions[conditionId].duration != undefined) {
+      if (game.activeConditions[conditionId].duration <= 0) {
+        delete game.activeConditions[conditionId];
+      }
+      else  game.activeConditions[conditionId].duration--;
+    }
   }
+  applyConditions(game);
 
   // TODO apply skill milestones
 
