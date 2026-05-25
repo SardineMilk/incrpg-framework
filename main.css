@@ -155,3 +155,19 @@ footer {
     border-color: #60a5fa;
     background-color: rgba(37, 99, 235, 0.08);
 }
+
+.skill-bar {
+    width: 100%;
+    height: 6px;
+    background: #2a2a2a;
+    border-radius: 3px;
+    margin-top: 4px;
+    overflow: hidden;
+}
+
+.skill-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--colour-primary);
+    transition: width 0.2s ease;  /* smooth xp gain */
+}
