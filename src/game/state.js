@@ -66,9 +66,6 @@ export const game = {
     },
   },
 
-  traits: [
-    "combat_1",
-  ],
 
   activeConditions: {
     combat_1: {

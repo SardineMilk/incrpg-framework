@@ -1,6 +1,6 @@
-import { req } from "../game/requirements.js"
-import { eff } from "../game/effects.js"
-import { evt } from "../game/events.js"
+import { req } from "./structure.js"
+import { eff } from "./structure.js"
+import { evt } from "./structure.js"
 
 export const EVENT_EFFECTS = {
     health_regen: {

@@ -3,6 +3,18 @@ import { changeEffectStrength, applyEffect } from "./effects.js";
 
 
 export function applyConditions(game) {
+
+    // Reset condition strength and decrement those with durations
+    for (const conditionId in game.activeConditions) {
+        game.activeConditions[conditionId].strength = 1;
+        if (game.activeConditions[conditionId].duration != undefined) {
+            if (game.activeConditions[conditionId].duration <= 0) {
+            delete game.activeConditions[conditionId];
+            }
+            else game.activeConditions[conditionId].duration--;
+        }
+    }
+
     // Resolve all condition strength modifiers first
     for (const conditionId in game.activeConditions) {
         const data = EFFECTS[conditionId];

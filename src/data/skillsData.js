@@ -1,8 +1,8 @@
-import { eff } from "../game/effects.js";
+import { eff } from "./structure.js";
 export const SKILLS = {
   // Attribute skills to allow them to level up.
   // Don't add milestones
-  strength:     {name:"Strength"},
+  strength:     {name:"Strength", level:[eff.changeAttribute("strength", 1, 0)]},
   constitution: {name:"Constitution"},
   agility:      {name:"Agility"},
   dexterity:    {name:"Dexterity"},

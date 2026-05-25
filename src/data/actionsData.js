@@ -1,5 +1,5 @@
-import { req } from "../game/requirements.js";
-import { eff } from "../game/effects.js";
+import { req } from "./structure.js";
+import { eff } from "./structure.js";
 
 export const ACTIONS = {
 

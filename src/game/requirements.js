@@ -1,28 +1,3 @@
-export const req = {
-  item: (item) => ({
-    type: "item",
-    item,
-  }),
-
-  location: (location) => ({
-    type: "location",
-    location,
-  }),
-
-  stat: (stat, value) => ({
-    type: "stat",
-    stat,
-    value,
-  }),
-
-  // If value is negative, it's treated as `resource.max - value`
-  resourceLessThan: (resource, value) => ({
-    type: "resourceLessThan",
-    resource,
-    value,
-  }),
-};
-
 // TODO add 
 // resourceGreaterThan
 // (not) hasCondition

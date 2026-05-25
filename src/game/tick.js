@@ -51,15 +51,10 @@ function tick() {
 
   game.tick++;
 
-  for (const conditionId in game.activeConditions) {
-    game.activeConditions[conditionId].strength = 1;
-    if (game.activeConditions[conditionId].duration != undefined) {
-      if (game.activeConditions[conditionId].duration <= 0) {
-        delete game.activeConditions[conditionId];
-      }
-      else  game.activeConditions[conditionId].duration--;
-    }
+  for (const skillId in game.skills) {
+    game.skills[skillId].multiplier = 1;
   }
+
   applyConditions(game);
 
   // TODO apply skill milestones
@@ -82,11 +77,13 @@ function processAction() {
 
   let duration = Math.ceil(action.duration / game.actions[current_id].competency);
 
+  // Grant attribute xp
   if (action.attributes) {
     for (const attribute in action.attributes) {
       grantSkillXp(game, attribute, action.attributes[attribute]);
     }
   }
+  // Apply tick effects
   if (action.tick) {
     for (const effect of action.tick) {
       applyEffect(game, effect);

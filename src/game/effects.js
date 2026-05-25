@@ -13,69 +13,6 @@ Action tick effects and result effects are applied by the tick functions as requ
 import { LogType } from "./log.js";
 import { grantSkillXp } from "./skills.js";
 
-// Object that has functions as parameters that return standard structured object which can be used by applyEffect
-export const eff = {
-    grantSkillXp: (skill, baseAmount) => ({
-        type: "grantSkillXp",
-        skill,
-        baseAmount,
-    }),
-
-    skillXpMultiplier: (skill, multiplier) => ({
-        type: "skillXpMultiplier",
-        skill,
-        multiplier,
-    }),
-
-    changeAttribute: (stat, flat = 0, multiplier = 0) => ({
-        type: "changeAttribute",
-        stat,
-        flat,
-        multiplier,
-    }),
-
-    applyCondition: (condition, duration) => ({
-        type: "applyCondition",
-        condition,
-        duration,
-    }),
-
-    changeConditionStrength: (condition, multiplier) => ({
-        type: "changeConditionStrength",
-        condition,
-        multiplier,
-    }),
-
-    changeResource: (resource, amount) => ({
-        type: "changeResource",
-        resource,
-        amount,
-    }),
-
-    setLocation: (location) => ({
-        type: "setLocation",
-        location,
-    }),
-
-    sendMessage:(category, message) => ({
-        type: "sendMessage",
-        category, 
-        message,
-    }),
-
-    addEventEffect: (event, effect) => ({
-        type: "addEventEffect",
-        event,
-        effect,
-    }),
-
-    setActiveAction: (action) => ({
-        type: "setActiveAction",
-        action,
-    }),
-};
-
-
 export function applyEffect(game, effect) {
     switch (effect.type) {
         case "grantSkillXp":

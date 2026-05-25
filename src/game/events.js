@@ -3,39 +3,6 @@ import { applyEffect } from "./effects.js";
 import { EFFECTS } from "../data/effectsData.js";
 import { applyCondition } from "./conditions.js";
 
-export const evt = {
-  resourceDropsBelowThreshold: (resource, threshold) => ({
-    type: "resourceDropsBelowThreshold",
-    resource,
-    threshold,
-  }),
-
-  resourceChanges: (resource) => ({
-    type: "resourceChanges",
-    resource,
-  }),
-
-  locationChanges: (location) => ({
-    type: "locationChanges",
-    location,
-  }),
-
-  attributeReachesThreshold: (attribute, threshold) => ({
-    type: "attributeReachesThreshold",
-    attribute,
-    threshold,
-  }),
-
-  conditionApplied: (condition) => ({
-    type: "conditionApplied",
-    condition,
-  }),
-
-  tick: () => ({
-    type: "tick",
-  })
-};
-
 export const eventHandlers = {
   resourceDropsBelowThreshold: (game, condition, previousState) => {
     const current = game.resources[condition.resource].current;

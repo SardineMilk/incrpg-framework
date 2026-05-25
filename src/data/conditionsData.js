@@ -1,4 +1,4 @@
-import { eff } from "../game/effects.js"
+import { eff } from "./structure.js"
 
 export const CONDITIONS = {
     sleeping: {
