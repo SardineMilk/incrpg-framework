@@ -96,7 +96,6 @@ export const game = {
     }
   },
   
-  conditionStrengths: {},
 
   eventEffects: {
     tick: [],

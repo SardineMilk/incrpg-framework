@@ -25,3 +25,12 @@ export function calculateActionsCompetency(game) {
         game.actions[action].competency = 1 + skillFactor + attributeFactor;
     }
 }
+
+
+export function calculateActionCompetency(game, actionId) {
+    const action = ACTIONS[actionId];
+    game.actions[actionId] = game.actions[actionId] || { progress: 0, completions: 0, competency: 1 };
+    const skillFactor = calculateActionSkillFactor(game, action);
+    const attributeFactor = calculateActionAttributeFactor(game, action);
+    game.actions[actionId].competency = 1 + skillFactor + attributeFactor;
+}

@@ -1,17 +1,6 @@
 import { SKILLS } from "../data/skillsData.js";
 import { ACTIONS } from "../data/actionsData.js";
-import { CONDITIONS } from "../data/conditionsData.js";
-import { TRAITS } from "../data/traitsData.js";
-import { applyEffect } from "../game/effects.js";
 
-
-export function applyTraitEffects(game) {
-    for (const trait of game.traits) {
-        for (const effect of TRAITS[trait].effects) {
-            applyEffect(game, effect);
-        }
-    }
-}
 
 export function initialiseState(game) {
     game.skills = game.skills || {};

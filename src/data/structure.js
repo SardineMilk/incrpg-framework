@@ -1,5 +1,3 @@
-
-
 export const eff = {
     grantSkillXp: (skill, baseAmount) => ({
         type: "grantSkillXp",
@@ -13,9 +11,9 @@ export const eff = {
         multiplier,
     }),
 
-    changeAttribute: (stat, flat = 0, multiplier = 0) => ({
+    changeAttribute: (attribute, flat = 0, multiplier = 0) => ({
         type: "changeAttribute",
-        stat,
+        attribute,
         flat,
         multiplier,
     }),

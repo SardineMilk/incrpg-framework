@@ -1,14 +1,13 @@
 import { ACTIONS } from "../data/actionsData.js";
-import { EFFECTS } from "../data/effectsData.js";
+import { CONDITIONS } from "../data/conditionsData.js";
 import { applyEffect } from "./effects.js";
 import { grantSkillXp } from "./skills.js";
 import { game } from "./state.js";
 import { initialiseState} from "../utils/state_creator.js";
-import { calculateActionsCompetency } from "./actions.js";
-import { applyConditions} from "./conditions.js";
+import { calculateActionCompetency, calculateActionsCompetency } from "./actions.js";
+import { processEventConditions, processNonEventConditions } from "./conditions.js";
 import { LogType, EventLog } from "./log.js";
 import { setIntervalFix, clearIntervalFix } from "../utils/throttleFix.js";
-import { processEventQueue} from "./events.js"
 
 const TICK_RATE = 1000 / 20;
 
@@ -28,7 +27,6 @@ export function startTicking(render) {
   game.activeConditions["death"] = {strength:1};
 
 
-
   if (intervalId !== null) {
     setIntervalFix(intervalId);
   }
@@ -46,6 +44,7 @@ export function startTicking(render) {
   };
 }
 
+
 function tick() {
   const previousState = JSON.parse(JSON.stringify(game));
 
@@ -55,19 +54,21 @@ function tick() {
     game.skills[skillId].multiplier = 1;
   }
 
-  applyConditions(game);
+  processNonEventConditions(game);
 
   // TODO apply skill milestones
 
   calculateAttributes(game);
 
+  // TODO limit this to only visible actions
   calculateActionsCompetency(game);
+  // calculateActionCompetency(game, game.activeAction);
 
   if (game.activeAction) {
     processAction();
   }
 
-  processEventQueue(game, previousState);
+  processEventConditions(game, previousState);
 }
 
 

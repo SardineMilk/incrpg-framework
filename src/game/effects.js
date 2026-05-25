@@ -59,29 +59,34 @@ export function applyEffect(game, effect) {
 
 
 export function changeEffectStrength(game, effect, multiplier) {
-    switch (effect.type) {
+    let scaledEffect = structuredClone(effect);
+    switch (scaledEffect.type) {
         case "grantSkillXp":
-            effect.baseAmount *= multiplier;
+            scaledEffect.baseAmount *= multiplier;
             break;
         case "skillXpMultiplier":
-            effect.multiplier *= multiplier;
+            scaledEffect.multiplier *= multiplier;
             break;
         case "changeAttribute":
-            effect.flat *= multiplier;
-            effect.multiplier *= multiplier;
+            scaledEffect.flat *= multiplier;
+            scaledEffect.multiplier *= multiplier;
             break;
         case "applyCondition":
-            effect.duration *= multiplier;
-            applyConditionEffects(game, effect);
+            scaledEffect.duration *= multiplier;
             break;
         case "conditionStrength":
-            effect.multiplier *= multiplier;
+            scaledEffect.multiplier *= multiplier;
             break;
         case "changeResource":
-            effect.amount *= multiplier;
+            scaledEffect.amount *= multiplier;
             break;
         default:
             console.warn("Cannot change effect strength of:", effect);
     }
+    return scaledEffect;
 }
 
+export function applyScaledEffect(game, effect, strength) {
+    const scaledEffect = changeEffectStrength(game, effect, strength);
+    applyEffect(game, scaledEffect);
+}
