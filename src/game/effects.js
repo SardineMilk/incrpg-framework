@@ -1,14 +1,3 @@
-/*
-Conditions, actions and traits apply effects to the game state.
-These are represented using the `eff` framework.
-`eff.doThing(...args)`
-These are then activated using the `applyEffect()` function
-by whatever portion of the game loop processes that data.
-
-Example:
-Trait effects are applied once when first gained
-Action tick effects and result effects are applied by the tick functions as required
-*/
 
 import { LogType } from "./log.js";
 import { grantSkillXp } from "./skills.js";

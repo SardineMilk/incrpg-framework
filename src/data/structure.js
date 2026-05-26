@@ -1,3 +1,20 @@
+
+// TODO
+// eff.changeCategoryStrength
+
+
+/*
+Conditions, actions and traits apply effects to the game state.
+These are represented using the `eff` framework.
+`eff.doThing(...args)`
+These are then activated using the `applyEffect()` function
+by whatever portion of the game loop processes that data.
+Every change to the gamestate goes through an effect
+
+Example:
+Trait effects are applied once when first gained
+Action tick effects and result effects are applied by the tick functions as required
+*/
 export const eff = {
     grantSkillXp: (skill, baseAmount) => ({
         type: "grantSkillXp",
@@ -59,7 +76,12 @@ export const eff = {
     }),
 };
 
-
+/*
+Events are triggered by effects
+The effect triggers all events of that category, 
+then the specific requirements of that condition are checked
+i.e. changeResource("health", 10) checks all resourceChanges, then only triggers positive change events
+*/
 export const evt = {
   resourceDropsBelowThreshold: (resource, threshold) => ({
     type: "resourceDropsBelowThreshold",
@@ -93,7 +115,10 @@ export const evt = {
   })
 };
 
-
+/*
+Requirements can be used to place static conditions on conditions
+i.e. Stat boost condition, no event, requirement resourcePercentLessThan("health", 30)
+*/
 export const req = {
   item: (item) => ({
     type: "item",
