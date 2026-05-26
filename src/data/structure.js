@@ -77,10 +77,8 @@ export const eff = {
 };
 
 /*
-Events are triggered by effects
-The effect triggers all events of that category, 
-then the specific requirements of that condition are checked
-i.e. changeResource("health", 10) checks all resourceChanges, then only triggers positive change events
+If a condition has a trigger, it is not activated during the normal condition step
+Instead it is activated whenever the trigger occurs
 */
 export const evt = {
   resourceDropsBelowThreshold: (resource, threshold) => ({
@@ -89,25 +87,35 @@ export const evt = {
     threshold,
   }),
 
-  resourceChanges: (resource) => ({
-    type: "resourceChanges",
+  resourceGain: (resource, min=1) => ({
+    type: "resourceGain",
     resource,
+    min,
   }),
 
-  locationChanges: (location) => ({
+  resourceLoss: (resource, min=1) => ({
+    type: "resourceLoss",
+    resource,
+    min,
+  }),
+
+  gainSkillXp: (skill) => ({
+    type: "gainSkillXp",
+    skill,
+  }),
+
+  locationChanges: (tags = []) => ({
     type: "locationChanges",
-    location,
-  }),
-
-  attributeReachesThreshold: (attribute, threshold) => ({
-    type: "attributeReachesThreshold",
-    attribute,
-    threshold,
+    tags,
   }),
 
   conditionApplied: (condition) => ({
     type: "conditionApplied",
     condition,
+  }),
+
+  actionChanges: () => ({
+    type: "actionChanges",
   }),
 
   tick: () => ({
@@ -118,6 +126,15 @@ export const evt = {
 /*
 Requirements can be used to place static conditions on conditions
 i.e. Stat boost condition, no event, requirement resourcePercentLessThan("health", 30)
+
+multiple requirements must all apply: 
+[A and B and C]
+you can add a nested array of requirements, of which only one must apply:
+[[A or B or C] and [X or Y or Z]]
+
+example:
+[[hasPickaxe or isStrong] and [locationHasStone or locationHasOre]]
+
 */
 export const req = {
   item: (item) => ({

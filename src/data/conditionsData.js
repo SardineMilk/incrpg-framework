@@ -208,7 +208,7 @@ const TRAITS = {
 
 const EVENT_EFFECTS = {
     health_regen: {
-        event: [
+        triggers: [
             evt.tick(),
         ],
         requirements: [
@@ -220,7 +220,7 @@ const EVENT_EFFECTS = {
         ],
     },
     stamina_regen: {
-        event: [
+        triggers: [
             evt.tick(),
         ],
         requirements: [
@@ -232,7 +232,7 @@ const EVENT_EFFECTS = {
         ],
     },
     mental_regen: {
-        event: [
+        triggers: [
             evt.tick(),
         ],
         requirements: [
@@ -244,17 +244,27 @@ const EVENT_EFFECTS = {
         ],
     },
 
+
     death: {
-        event: [
-            evt.resourceDropsBelowThreshold("health", 0),
-            evt.resourceDropsBelowThreshold("stamina", 0),
-            evt.resourceDropsBelowThreshold("mental", 0),
+        triggers: [
+            evt.resourceLoss("health"),
+            evt.resourceLoss("stamina"),
+            evt.resourceLoss("mental"),
+        ],
+        requirements: [
+            [
+                req.resourceLessThan("health", 0),
+                req.resourceLessThan("stamina", 0),
+                req.resourceLessThan("mental", 0),
+            ]
         ],
         effects: [
             eff.setActiveAction("sleeping"),
             eff.sendMessage("SYSTEM", "You pass out"),
         ]
-    }
+    },
+     
+
 }
 
 const TEMP_CONDITIONS = {

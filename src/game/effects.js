@@ -1,6 +1,7 @@
 
 import { LogType } from "./log.js";
 import { grantSkillXp } from "./skills.js";
+import { processEffectEvents } from "./events.js";
 
 export function applyEffect(game, effect) {
     switch (effect.type) {
@@ -34,16 +35,16 @@ export function applyEffect(game, effect) {
                 effect.message,
             );
             break;
-        case "addEventEffect":
-            game.eventEffects[effect.event] = game.eventEffects[effect.event] || [];
-            game.eventEffects[effect.event].push(effect.effect);
-            break;
         case "setActiveAction":
             game.activeAction = effect.action;
             break;  
+        case "tick":
+            game.tick++;
+            break
         default:
             console.warn("Unknown effect type:", effect.type);
     }
+    processEffectEvents(game, effect);
 }
 
 

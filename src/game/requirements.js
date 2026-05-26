@@ -30,17 +30,17 @@ function meetsRequirement(game, requirement) {
 }
 
 function meetsRequirementsGroup(game, requirements) {
-  return requirements.every((requirement) => meetsRequirement(game, requirement));
+  return requirements.some((requirement) => meetsRequirement(game, requirement));
 }
 
 export function meetsRequirements(game, action) {
   if (!action.requirements || action.requirements.length === 0) return true;
 
   if (Array.isArray(action.requirements[0])) {
-    return action.requirements.some((group) =>
+    return action.requirements.every((group) =>
       Array.isArray(group) && meetsRequirementsGroup(game, group)
     );
   }
 
-  return meetsRequirementsGroup(game, action.requirements);
+  return action.requirements.every((requirement) => meetsRequirement(game, requirement));
 }

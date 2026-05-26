@@ -5,9 +5,11 @@ import { grantSkillXp } from "./skills.js";
 import { game } from "./state.js";
 import { initialiseState} from "../utils/state_creator.js";
 import { calculateActionCompetency, calculateActionsCompetency } from "./actions.js";
-import { processEventConditions, processNonEventConditions } from "./conditions.js";
+import { processConditions } from "./conditions.js";
 import { LogType, EventLog } from "./log.js";
 import { setIntervalFix, clearIntervalFix } from "../utils/throttleFix.js";
+import { eff } from "../data/structure.js";
+
 
 const TICK_RATE = 1000 / 20;
 
@@ -21,10 +23,10 @@ export function startTicking(render) {
   game.log.followTail = true;
 
   // TODO factor this out
-  game.activeConditions["health_regen"] = {strength:1};
-  game.activeConditions["stamina_regen"] = {strength:1};
-  game.activeConditions["mental_regen"] = {strength:1};
-  game.activeConditions["death"] = {strength:1};
+  applyEffect(game, eff.applyCondition("health_regen"));
+  applyEffect(game, eff.applyCondition("stamina_regen"));
+  applyEffect(game, eff.applyCondition("mental_regen"));
+  applyEffect(game, eff.applyCondition("death"));
 
 
   if (intervalId !== null) {
@@ -48,13 +50,13 @@ export function startTicking(render) {
 function tick() {
   const previousState = JSON.parse(JSON.stringify(game));
 
-  game.tick++;
+  applyEffect(game, {type:"tick"});
 
   for (const skillId in game.skills) {
     game.skills[skillId].multiplier = 1;
   }
 
-  processNonEventConditions(game);
+  processConditions(game);
 
   // TODO apply skill milestones
 
@@ -68,7 +70,6 @@ function tick() {
     processAction();
   }
 
-  processEventConditions(game, previousState);
 }
 
 
@@ -87,6 +88,7 @@ function processAction() {
   // Apply tick effects
   if (action.tick) {
     for (const effect of action.tick) {
+      if (game.activeAction !== current_id) break;  // If effect causes action to be changed  
       applyEffect(game, effect);
     } 
   }
