@@ -142,9 +142,9 @@ export const req = {
     item,
   }),
 
-  location: (location) => ({
-    type: "location",
-    location,
+  locationHasTag: (tag) => ({
+    type: "locationHasTag",
+    tag,
   }),
 
   stat: (stat, value) => ({

@@ -2,20 +2,14 @@
 // resourceGreaterThan
 // (not) hasCondition
 
-// TODO
-// Should this be 
-// [x AND y] OR [z AND w]
-// [x OR y] AND [z OR w]
-// first would be more intuitive
-// second would allow things like [some matching location] AND [some way to gather]
-
+import { LOCATIONS } from "../data/locationsData.js"
 
 function meetsRequirement(game, requirement) {
   switch (requirement.type) {
     case "item":
       return (game.inventory[requirement.item] || 0) > 0;
-    case "location":
-      return game.location === requirement.location;
+    case "locationHasTag":
+      return (requirement.tag in LOCATIONS[game.location].tags);
     case "stat":
       return (game.attributes[requirement.stat]?.value || 0) >= requirement.value;
     case "resourceLessThan":

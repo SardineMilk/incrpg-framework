@@ -84,7 +84,7 @@ export const game = {
 
   quests: {},
 
-  location: "village",
+  location: "village_1",
 
   activeAction: "jogging",
 
