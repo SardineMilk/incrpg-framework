@@ -86,6 +86,11 @@ export const eff = {
         type: "setActiveAction",
         action,
     }),
+
+    presentChoice: (options) => ({
+      type: "presentChoice",
+      options,
+    }),
 };
 
 /*
@@ -132,7 +137,7 @@ export const evt = {
 
   tick: () => ({
     type: "tick",
-  })
+  }),
 };
 
 /*

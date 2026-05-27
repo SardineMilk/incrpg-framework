@@ -54,7 +54,13 @@ export function applyEffect(game, effect) {
             break;  
         case "tick":
             game.tick++;
-            break
+            break;
+        case "presentChoice":
+            game.log.append(
+                LogType.ACTION,
+                effect.options,
+            );
+            break;
         default:
             console.warn("Unknown effect type:", effect.type);
     }
