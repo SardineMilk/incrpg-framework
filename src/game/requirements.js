@@ -10,7 +10,7 @@ function meetsRequirement(game, requirement) {
       return (game.inventory[requirement.item] || 0) > 0;
 
     case "locationHasTag":
-      return (requirement.tag in LOCATIONS[game.location].tags);
+      return LOCATIONS[game.location].tags.includes(requirement.tag);
 
     case "stat":
       return (game.attributes[requirement.stat]?.value || 0) >= requirement.value;
@@ -23,8 +23,8 @@ function meetsRequirement(game, requirement) {
 
     case "hasCondition":
       if (!(requirement.condition in game.activeConditions)) return false;
-      if (condition.min_duration == null) return true;
-      if (condition.min_duration <= game.activeConditions[condition].duration) return true;
+      if (requirement.min_duration == null) return true;
+      if (requirement.min_duration <= game.activeConditions[requirement.condition].duration) return true;
       return false;
 
     case "hasNotCondition":

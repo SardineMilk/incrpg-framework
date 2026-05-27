@@ -78,7 +78,7 @@ export function changeEffectStrength(game, effect, multiplier) {
         case "applyCondition":
             scaledEffect.duration *= multiplier;
             break;
-        case "conditionStrength":
+        case "changeConditionStrength":
             scaledEffect.multiplier *= multiplier;
             break;
         case "changeResource":
