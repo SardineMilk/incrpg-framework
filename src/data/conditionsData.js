@@ -206,8 +206,9 @@ const TRAITS = {
 }
 
 
-const EVENT_EFFECTS = {
+const INHERENT_EFFECTS = {
     health_regen: {
+        tags: ["passive_regen"],
         triggers: [
             evt.tick(),
         ],
@@ -220,6 +221,7 @@ const EVENT_EFFECTS = {
         ],
     },
     stamina_regen: {
+        tags: ["passive_regen"],
         triggers: [
             evt.tick(),
         ],
@@ -232,6 +234,7 @@ const EVENT_EFFECTS = {
         ],
     },
     mental_regen: {
+        tags: ["passive_regen"],
         triggers: [
             evt.tick(),
         ],
@@ -272,9 +275,7 @@ const TEMP_CONDITIONS = {
         name: "Sleeping",
         description: "You are asleep, greatly boosting your natural recovery",
         effects: [     
-            eff.changeConditionStrength("health_regen", 10),
-            eff.changeConditionStrength("stamina_regen", 10),
-            eff.changeConditionStrength("mental_regen", 10),
+            eff.changeConditionTagStrength("passive_regen", 10),
         ],
     },
 
@@ -309,4 +310,4 @@ const TEMP_CONDITIONS = {
 
 
 
-export const CONDITIONS = Object.assign({}, TEMP_CONDITIONS, TRAITS, EVENT_EFFECTS);
+export const CONDITIONS = Object.assign({}, TEMP_CONDITIONS, TRAITS, INHERENT_EFFECTS);

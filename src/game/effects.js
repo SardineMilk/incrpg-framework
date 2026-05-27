@@ -2,6 +2,8 @@
 import { LogType } from "./log.js";
 import { grantSkillXp } from "./skills.js";
 import { processEffectEvents } from "./events.js";
+import { CONDITIONS } from "../data/conditionsData.js";
+import { eff } from "../data/structure.js";
 
 export function applyEffect(game, effect) {
     switch (effect.type) {
@@ -23,8 +25,20 @@ export function applyEffect(game, effect) {
             if (!game.activeConditions[effect.condition]) break;
             game.activeConditions[effect.condition].strength += effect.multiplier;
             break;
+        case "changeConditionTagStrength":
+            for (const conditionId in game.activeConditions) {
+                const tags = CONDITIONS[conditionId].tags;
+                if (tags == undefined) continue;
+                if (tags.includes(effect.tag)) {
+                    game.activeConditions[conditionId].strength += effect.multiplier;
+                }
+            }
+            break;
         case "changeResource":
-            game.resources[effect.resource].current += effect.amount;
+            game.resources[effect.resource].current += effect.amount; 
+            break;
+        case "setResource":
+            game.resources[effect.resource].current = effect.amount;
             break;
         case "setLocation":
             game.location = effect.location;

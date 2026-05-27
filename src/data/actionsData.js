@@ -7,7 +7,7 @@ export const ACTIONS = {
     name: "Jogging",
     duration: 20,
     requirements: [
-      req.location("outside"),
+      req.locationHasTag("outside"),
     ],
 
     attributes: {
@@ -42,7 +42,7 @@ export const ACTIONS = {
     name: "Calisthenics",
     duration: 20,
     requirements: [
-      req.location("outside"),
+      req.locationHasTag("outside"),
     ],
 
     attributes: {
@@ -75,7 +75,8 @@ export const ACTIONS = {
     name: "Train Sword",
     duration: 30,
     requirements: [
-      [req.item("sword"), req.location("village"),]
+      req.item("sword"),
+      req.locationHasTag("outside"),
     ],
 
     attributes: {

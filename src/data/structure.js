@@ -47,8 +47,20 @@ export const eff = {
         multiplier,
     }),
 
+    changeConditionTagStrength: (tag, multiplier) => ({
+        type: "changeConditionTagStrength",
+        tag,
+        multiplier,
+    }),
+
     changeResource: (resource, amount) => ({
         type: "changeResource",
+        resource,
+        amount,
+    }),
+
+    setResource: (resource, amount) => ({
+        type: "setResource",
         resource,
         amount,
     }),
@@ -158,5 +170,16 @@ export const req = {
     type: "resourceLessThan",
     resource,
     value,
+  }),
+
+  hasCondition: (condition, min_duration=null) => ({
+    type: "hasCondition",
+    condition,
+    min_duration,
+  }),
+
+  hasNotCondition: (condition) => ({
+    type: "hasCondition",
+    condition,
   }),
 };

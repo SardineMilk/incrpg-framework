@@ -8,16 +8,28 @@ function meetsRequirement(game, requirement) {
   switch (requirement.type) {
     case "item":
       return (game.inventory[requirement.item] || 0) > 0;
+
     case "locationHasTag":
       return (requirement.tag in LOCATIONS[game.location].tags);
+
     case "stat":
       return (game.attributes[requirement.stat]?.value || 0) >= requirement.value;
+
     case "resourceLessThan":
       const resourceVal = game.resources[requirement.resource].current;
       const resourceMax = game.resources[requirement.resource].max;
-      // If value positive 
       if (requirement.value >= 0) return resourceVal < requirement.value;
       else return resourceVal < resourceMax - (requirement.value + 1);
+
+    case "hasCondition":
+      if (!(requirement.condition in game.activeConditions)) return false;
+      if (condition.min_duration == null) return true;
+      if (condition.min_duration <= game.activeConditions[condition].duration) return true;
+      return false;
+
+    case "hasNotCondition":
+      return (!(requirement.condition in game.activeConditions));
+
     default:
       return false;
   }
