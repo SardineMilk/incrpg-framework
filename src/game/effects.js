@@ -8,29 +8,31 @@ import { eff } from "../data/structure.js";
 export function applyEffect(game, effect) {
     switch (effect.type) {
         case "grantSkillXp":
-            grantSkillXp(game, effect.skill, effect.baseAmount);
+            grantSkillXp(game, effect.skill, effect.amount);
             break;
         case "skillXpMultiplier":
-            game.skills[effect.skill].multiplier += effect.multiplier;
+            game.skills[effect.skill].multiplier += effect.amount;
             break;
         case "changeAttribute":
             game.attributes[effect.attribute].flat += effect.flat;
             game.attributes[effect.attribute].multiplier += effect.multiplier;
             break;
         case "applyCondition":
-            game.activeConditions[effect.condition] = game.activeConditions[effect.condition] || { duration: 0, strength: 1 };
+            game.activeConditions[effect.condition] = game.activeConditions[effect.condition] || { strength: 1 };
+            if (effect.duration == null) break;
+            game.activeConditions[effect.condition].duration = game.activeConditions[effect.condition].duration || 0;
             game.activeConditions[effect.condition].duration += effect.duration;
             break;
         case "changeConditionStrength":
             if (!game.activeConditions[effect.condition]) break;
-            game.activeConditions[effect.condition].strength += effect.multiplier;
+            game.activeConditions[effect.condition].strength += effect.amount;
             break;
         case "changeConditionTagStrength":
             for (const conditionId in game.activeConditions) {
                 const tags = CONDITIONS[conditionId].tags;
                 if (tags == undefined) continue;
                 if (tags.includes(effect.tag)) {
-                    game.activeConditions[conditionId].strength += effect.multiplier;
+                    game.activeConditions[conditionId].strength += effect.amount;
                 }
             }
             break;
@@ -72,20 +74,21 @@ export function changeEffectStrength(game, effect, multiplier) {
     let scaledEffect = structuredClone(effect);
     switch (scaledEffect.type) {
         case "grantSkillXp":
-            scaledEffect.baseAmount *= multiplier;
+            scaledEffect.amount *= multiplier;
             break;
         case "skillXpMultiplier":
-            scaledEffect.multiplier *= multiplier;
+            scaledEffect.amount *= multiplier;
             break;
         case "changeAttribute":
             scaledEffect.flat *= multiplier;
             scaledEffect.multiplier *= multiplier;
             break;
         case "applyCondition":
+            if (scaledEffect.duration == null) break;
             scaledEffect.duration *= multiplier;
             break;
         case "changeConditionStrength":
-            scaledEffect.multiplier *= multiplier;
+            scaledEffect.amount *= multiplier;
             break;
         case "changeResource":
             scaledEffect.amount *= multiplier;

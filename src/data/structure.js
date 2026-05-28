@@ -16,81 +16,88 @@ Trait effects are applied once when first gained
 Action tick effects and result effects are applied by the tick functions as required
 */
 export const eff = {
-    grantSkillXp: (skill, baseAmount) => ({
-        type: "grantSkillXp",
-        skill,
-        baseAmount,
-    }),
 
-    skillXpMultiplier: (skill, multiplier) => ({
-        type: "skillXpMultiplier",
-        skill,
-        multiplier,
-    }),
+  /* Gives an amount of xp to the specified skill, multiplied by its xpMultiplier */
+  grantSkillXp: (skill, amount) => ({
+      type: "grantSkillXp",
+      skill,
+      amount,
+  }),
 
-    changeAttribute: (attribute, flat = 0, multiplier = 0) => ({
-        type: "changeAttribute",
-        attribute,
-        flat,
-        multiplier,
-    }),
+  /* Increase the xp multiplier for a skill by a flat amount */
+  skillXpMultiplier: (skill, amount) => ({
+      type: "skillXpMultiplier",
+      skill,
+      amount,
+  }),
 
-    applyCondition: (condition, duration) => ({
-        type: "applyCondition",
-        condition,
-        duration,
-    }),
+  /* Increase the flat bonus and/or multiplier of an attribute by an amount */
+  changeAttribute: (attribute, flat = 0, multiplier = 0) => ({
+      type: "changeAttribute",
+      attribute,
+      flat,
+      multiplier,
+  }),
 
-    changeConditionStrength: (condition, multiplier) => ({
-        type: "changeConditionStrength",
-        condition,
-        multiplier,
-    }),
+  /* Apply a condition for an optional duration. If no duration is specified, the condition is permanent */
+  applyCondition: (condition, duration=null) => ({
+      type: "applyCondition",
+      condition,
+      duration,
+  }),
 
-    changeConditionTagStrength: (tag, multiplier) => ({
-        type: "changeConditionTagStrength",
-        tag,
-        multiplier,
-    }),
+  /* Increase the strength of a condition by amount */
+  changeConditionStrength: (condition, amount) => ({
+      type: "changeConditionStrength",
+      condition,
+      amount,
+  }),
 
-    changeResource: (resource, amount) => ({
-        type: "changeResource",
-        resource,
-        amount,
-    }),
+  /* Increase the strength of all conditions with tag by amount */
+  changeConditionTagStrength: (tag, amount) => ({
+      type: "changeConditionTagStrength",
+      tag,
+      amount,
+  }),
 
-    setResource: (resource, amount) => ({
-        type: "setResource",
-        resource,
-        amount,
-    }),
+  /* Change the current value of a resource (health, stamina, mental) by amount. Can be negative */
+  changeResource: (resource, amount) => ({
+      type: "changeResource",
+      resource,
+      amount,
+  }),
 
-    setLocation: (location) => ({
-        type: "setLocation",
-        location,
-    }),
+  /* Set the current value of a resource to amount */
+  setResource: (resource, amount) => ({
+      type: "setResource",
+      resource,
+      amount,
+  }),
 
-    sendMessage: (category, message) => ({
-        type: "sendMessage",
-        category,
-        message,
-    }),
+  /* Set the current player location to location */
+  setLocation: (location) => ({
+      type: "setLocation",
+      location,
+  }),
 
-    addEventEffect: (event, effect) => ({
-        type: "addEventEffect",
-        event,
-        effect,
-    }),
+  /* Send a log message. Category is used by the player to filter log */
+  sendMessage: (category, message) => ({
+      type: "sendMessage",
+      category,
+      message,
+  }),
 
-    setActiveAction: (action) => ({
-        type: "setActiveAction",
-        action,
-    }),
+  /* Set the active action of the player */
+  setActiveAction: (action) => ({
+      type: "setActiveAction",
+      action,
+  }),
 
-    presentChoice: (options) => ({
-      type: "presentChoice",
-      options,
-    }),
+  /* Present a choice to the player, replacing their action ui until one is picked. Options are basically lambda actions */
+  presentChoice: (options) => ({
+    type: "presentChoice",
+    options,
+  }),
 };
 
 /*
@@ -164,9 +171,10 @@ export const req = {
     tag,
   }),
 
-  stat: (stat, value) => ({
-    type: "stat",
-    stat,
+  /* Min requirement for strength, wit, etc */
+  attrMoreThan: (attr, value) => ({
+    type: "attrMoreThan",
+    attr,
     value,
   }),
 
@@ -177,12 +185,14 @@ export const req = {
     value,
   }),
 
+  /* Is this condition currently active, with an optional minimum duration */
   hasCondition: (condition, min_duration=null) => ({
     type: "hasCondition",
     condition,
     min_duration,
   }),
 
+  /* Does the player not have this condition */
   hasNotCondition: (condition) => ({
     type: "hasCondition",
     condition,

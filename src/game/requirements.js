@@ -12,8 +12,8 @@ function meetsRequirement(game, requirement) {
     case "locationHasTag":
       return LOCATIONS[game.location].tags.includes(requirement.tag);
 
-    case "stat":
-      return (game.attributes[requirement.stat]?.value || 0) >= requirement.value;
+    case "attrMoreThan":
+      return game.attributes[requirement.attr].value >= requirement.value;
 
     case "resourceLessThan":
       const resourceVal = game.resources[requirement.resource].current;
