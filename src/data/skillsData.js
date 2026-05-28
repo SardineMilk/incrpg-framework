@@ -17,135 +17,273 @@ export const SKILLS = {
     name: "Combat",
     description: "Pit your mind and body against another in battle.",
     parent:null,
-    milestones: {5:"combat_1",10:"combat_2",20:"combat_3",40:"combat_4",80:"combat_5"}
+    milestones: {
+      5: [eff.changeAttribute("strength", 1, 0), eff.changeAttribute("constitution", 1, 0)],
+      10:[eff.skillXpMultiplier("combat", 0.1), eff.changeAttribute("perception", 1, 0)],
+      20:[eff.changeAttribute("strength", 0, 1.1), eff.changeAttribute("constitution", 0, 1.1)],
+      40:[eff.skillXpMultiplier("combat", 0.2), eff.changeAttribute("willpower", 2, 0)],
+      80:[eff.changeAttribute("strength", 0, 1.2), eff.changeAttribute("constitution", 0, 1.2), eff.changeConditionStrength("fear", -0.3)],
+    },
   },
 
   weapon_proficiency: {
     name: "Weapon Proficiency",
     description: "Mastery of melee weapons. Wield them as an extension of your body.",
     parent: "combat",
-    milestones: {5:"weapon_proficiency_1",10:"weapon_proficiency_2",20:"weapon_proficiency_3",40:"weapon_proficiency_4",80:"weapon_proficiency_5"}
+    milestones: {
+      5: [eff.changeAttribute("dexterity", 1, 0)],
+      10:[eff.skillXpMultiplier("weapon_proficiency", 0.1)],
+      20:[eff.changeAttribute("agility", 0, 1.1), eff.changeAttribute("dexterity", 0, 1.1)],
+      40:[eff.skillXpMultiplier("weapon_proficiency", 0.2), eff.changeAttribute("strength", 1, 0)],
+      80:[eff.changeAttribute("dexterity", 0, 1.2), eff.changeConditionStrength("off_balance", -0.25)],
+    },
   },
 
   club: {
     name: "Club Fighting",
     description: "A stick. A hammer. The closest rock. The first weapon ever used, and it holds up today.",
     parent: "weapon_proficiency",
-    milestones: {5:"club_1",10:"club_2",20:"club_3",40:"club_4",80:"club_5"}
+    milestones: {
+      5: [eff.changeAttribute("strength", 1, 0)],
+      10:[eff.skillXpMultiplier("club", 0.15), eff.grantSkillXp("weapon_proficiency", 20)],
+      20:[eff.changeAttribute("strength", 0, 1.1), eff.changeConditionStrength("stunned", 0.1)],
+      40:[eff.skillXpMultiplier("club", 0.2), eff.changeAttribute("constitution", 1, 0)],
+      80:[eff.changeAttribute("strength", 0, 1.25), eff.changeConditionStrength("stunned", 0.2), eff.changeConditionStrength("dazed", 0.15)],
+    },
   },
+
   sword: {
     name: "Sword Fighting",
     description: "A tool of war.",
     parent: "weapon_proficiency",
-    milestones: {5:"sword_1",10:"sword_2",20:"sword_3",40:"sword_4",80:"sword_5"}
+    milestones: {
+      5: [eff.changeAttribute("dexterity", 1, 0)],
+      10:[eff.skillXpMultiplier("sword", 0.15), eff.changeAttribute("agility", 1, 0)],
+      20:[eff.changeAttribute("dexterity", 0, 1.1), eff.changeAttribute("agility", 0, 1.1)],
+      40:[eff.skillXpMultiplier("sword", 0.2), eff.changeConditionStrength("bleeding", 0.1)],
+      80:[eff.changeAttribute("dexterity", 0, 1.25), eff.changeAttribute("perception", 0, 1.1), eff.changeConditionStrength("bleeding", 0.2)],
+    },
   },
+
   dagger: {
     name: "Dagger Fighting",
     description: "Small, pointy object. Learn how and where to poke things.",
     parent: "weapon_proficiency",
-    milestones: {5:"dagger_1",10:"dagger_2",20:"dagger_3",40:"dagger_4",80:"dagger_5"}
+    milestones: {
+      5: [eff.changeAttribute("dexterity", 1, 0)],
+      10:[eff.skillXpMultiplier("dagger", 0.15), eff.changeAttribute("agility", 1, 0)],
+      20:[eff.changeAttribute("dexterity", 0, 1.15), eff.grantSkillXp("perception", 30)],
+      40:[eff.skillXpMultiplier("dagger", 0.2), eff.changeConditionStrength("bleeding", 0.15)],
+      80:[eff.changeAttribute("dexterity", 0, 1.3), eff.changeConditionStrength("bleeding", 0.25), eff.changeConditionStrength("poisoned", 0.1)],
+    }, 
   },
+
   axe: {
     name: "Axe Fighting",
     description: "Splitting limbs is easier than logs.",
     parent: "weapon_proficiency",
-    milestones: {5:"axe_1",10:"axe_2",20:"axe_3",40:"axe_4",80:"axe_5"}
+    milestones: {
+      5: [eff.changeAttribute("strength", 1, 0)],
+      10:[eff.skillXpMultiplier("axe", 0.15), eff.grantSkillXp("woodcutting", 25)],
+      20:[eff.changeAttribute("strength", 0, 1.1), eff.changeAttribute("constitution", 1, 0)],
+      40:[eff.skillXpMultiplier("axe", 0.2), eff.changeConditionStrength("bleeding", 0.2)],
+      80:[eff.changeAttribute("strength", 0, 1.25), eff.changeConditionStrength("bleeding", 0.3), eff.changeAttribute("constitution", 0, 1.1)],
+    }, 
   },
+
   spear: {
     name: "Spear Fighting",
     description: "A versatile and effective weapon. Keep your distance and poke.",
     parent: "weapon_proficiency",
-    milestones: {5:"spear_1",10:"spear_2",20:"spear_3",40:"spear_4",80:"spear_5"}
+    milestones: {
+      5: [eff.changeAttribute("perception", 1, 0)],
+      10:[eff.skillXpMultiplier("spear", 0.15), eff.changeAttribute("agility", 1, 0)],
+      20:[eff.changeAttribute("perception", 0, 1.1), eff.changeAttribute("agility", 0, 1.1)],
+      40:[eff.skillXpMultiplier("spear", 0.2), eff.grantSkillXp("throwing", 40)],
+      80:[eff.changeAttribute("perception", 0, 1.2), eff.changeAttribute("agility", 0, 1.15), eff.changeConditionStrength("off_balance", -0.2)],
+    },
   },
 
   ranged: {
     name: "Ranged",
     description: "The art of accelerating objects towards a target.",
     parent: "combat",
-    milestones: {5:"ranged_1",10:"ranged_2",20:"ranged_3",40:"ranged_4",80:"ranged_5"}
+    milestones: {
+      5: [eff.changeAttribute("perception", 1, 0), eff.changeAttribute("dexterity", 1, 0)],
+      10:[eff.skillXpMultiplier("ranged", 0.1), eff.changeAttribute("perception", 1, 0)],
+      20:[eff.changeAttribute("perception", 0, 1.1), eff.changeAttribute("dexterity", 0, 1.1)],
+      40:[eff.skillXpMultiplier("ranged", 0.2), eff.changeAttribute("wit", 1, 0)],
+      80:[eff.changeAttribute("perception", 0, 1.2), eff.changeAttribute("dexterity", 0, 1.15), eff.changeConditionStrength("calm", 0.1)],
+    },
   },
 
   archery: {
     name: "Archery",
     description: "Use a bow to shoot an arrow. Surprisingly tricky, but effective. If you have arrows.",
     parent: "ranged",
-    milestones: {5:"archery_1",10:"archery_2",20:"archery_3",40:"archery_4",80:"archery_5"}
+    milestones: {
+      5: [eff.changeAttribute("dexterity", 1, 0)],
+      10:[eff.skillXpMultiplier("archery", 0.15), eff.changeAttribute("perception", 1, 0)],
+      20:[eff.changeAttribute("dexterity", 0, 1.1), eff.changeAttribute("strength", 1, 0)],
+      40:[eff.skillXpMultiplier("archery", 0.2), eff.changeConditionStrength("bleeding", 0.1), eff.changeAttribute("perception", 0, 1.1)],
+      80:[eff.changeAttribute("dexterity", 0, 1.25), eff.changeAttribute("perception", 0, 1.2), eff.changeConditionStrength("calm", 0.15)],
+    },
   },
+
   throwing: {
     name: "Throwing",
     description: "Humanoid creatures are uniquely suited to throwing stuff. Exploit this advantage.",
     parent: "ranged",
-    milestones: {5:"throwing_1",10:"throwing_2",20:"throwing_3",40:"throwing_4",80:"throwing_5"}
+    milestones: {
+      5: [eff.changeAttribute("strength", 1, 0), eff.changeAttribute("dexterity", 1, 0)],
+      10:[eff.skillXpMultiplier("throwing", 0.15), eff.grantSkillXp("spear", 20)],
+      20:[eff.changeAttribute("strength", 0, 1.1), eff.changeAttribute("agility", 1, 0)],
+      40:[eff.skillXpMultiplier("throwing", 0.2), eff.changeAttribute("dexterity", 0, 1.1)],
+      80:[eff.changeAttribute("strength", 0, 1.15), eff.changeAttribute("dexterity", 0, 1.2), eff.changeConditionStrength("stunned", 0.1)],
+    },
   },
 
   unarmed: {
     name: "Unarmed",
     description: "Fight without using a weapon. You're not a cheater.",
     parent: "combat",
-    milestones: {5:"unarmed_1",10:"unarmed_2",20:"unarmed_3",40:"unarmed_4",80:"unarmed_5"}
+    milestones: {
+      5: [eff.changeAttribute("strength", 1, 0), eff.changeAttribute("agility", 1, 0)],
+      10:[eff.skillXpMultiplier("unarmed", 0.1), eff.changeAttribute("constitution", 1, 0)],
+      20:[eff.changeAttribute("strength", 0, 1.1), eff.changeAttribute("agility", 0, 1.1)],
+      40:[eff.skillXpMultiplier("unarmed", 0.2), eff.changeAttribute("dexterity", 0, 1.1), eff.changeConditionStrength("stunned", 0.15)],
+      80:[eff.changeAttribute("strength", 0, 1.2), eff.changeAttribute("agility", 0, 1.2), eff.changeConditionStrength("fear", -0.2), eff.changeConditionStrength("stunned", 0.2)],
+    },
   },
 
   recovery: {
     name:"Recovery",
     description:"Restore yourself to peak condition. Should you be proud of this skill?",
     parent:null,
-    milestones: {5:"recovery_1",10:"recovery_2",20:"recovery_3",40:"recovery_4",80:"recovery_5"}
+    milestones: {
+      5: [eff.changeAttribute("constitution", 1, 0)],
+      10:[eff.skillXpMultiplier("recovery", 0.1), eff.changeAttribute("willpower", 1, 0)],
+      20:[eff.changeAttribute("constitution", 0, 1.1), eff.changeConditionTagStrength("injury", -0.1)],
+      40:[eff.skillXpMultiplier("recovery", 0.2), eff.changeConditionTagStrength("injury", -0.15), eff.changeAttribute("constitution", 0, 1.15)],
+      80:[eff.changeAttribute("constitution", 0, 1.25), eff.changeConditionTagStrength("injury", -0.25), eff.changeConditionTagStrength("illness", -0.2)],
+    },
   },
+
   regeneration: {
     name: "Regeneration",
     description: "If you keep getting hurt, your body learns to heal faster. Thats how it works.",
     parent: "recovery",
-    milestones: {5:"regeneration_1",10:"regeneration_2",20:"regeneration_3",40:"regeneration_4",80:"regeneration_5"}
+    milestones: {
+      5: [eff.changeAttribute("constitution", 1, 0)],
+      10:[eff.skillXpMultiplier("regeneration", 0.15), eff.changeConditionStrength("bleeding", -0.1)],
+      20:[eff.changeAttribute("constitution", 0, 1.1), eff.changeConditionTagStrength("injury", -0.1)],
+      40:[eff.skillXpMultiplier("regeneration", 0.2), eff.changeConditionTagStrength("injury", -0.15), eff.changeConditionStrength("bleeding", -0.2)],
+      80:[eff.changeAttribute("constitution", 0, 1.25), eff.changeConditionTagStrength("injury", -0.3), eff.changeConditionStrength("bleeding", -0.3)],
+    },
   },  
+
   breathing: {
     name: "Breathing",
     description: "You're breathing wrong. In through the nose. Bring air down to the belly. Out through the mouth.",
     parent: "recovery",
-    milestones: {5:"breathing_1",10:"breathing_2",20:"breathing_3",40:"breathing_4",80:"breathing_5"}
+    milestones: {
+      5: [eff.changeAttribute("constitution", 1, 0)],
+      10:[eff.skillXpMultiplier("breathing", 0.15), eff.changeAttribute("willpower", 1, 0)],
+      20:[eff.changeAttribute("constitution", 0, 1.1), eff.changeConditionStrength("winded", -0.2)],
+      40:[eff.skillXpMultiplier("breathing", 0.2), eff.changeConditionStrength("winded", -0.3), eff.grantSkillXp("meditation", 30)],
+      80:[eff.changeAttribute("constitution", 0, 1.2), eff.changeAttribute("willpower", 0, 1.1), eff.changeConditionStrength("winded", -0.4), eff.changeConditionStrength("panicking", -0.25)],
+    },
   },
+
   mindfulness: {
     name:"Mindfulness",
     description: "Become more aware of your mental state, whats affecting it, and how to improve it.",
     parent: "recovery",
-    milestones: {5:"mindfulness_1",10:"mindfulness_2",20:"mindfulness_3",40:"mindfulness_4",80:"mindfulness_5"}
+    milestones: {
+      5: [eff.changeAttribute("willpower", 1, 0), eff.changeAttribute("perception", 1, 0)],
+      10:[eff.skillXpMultiplier("mindfulness", 0.15), eff.grantSkillXp("meditation", 20)],
+      20:[eff.changeAttribute("willpower", 0, 1.1), eff.changeConditionTagStrength("mental", -0.1)],
+      40:[eff.skillXpMultiplier("mindfulness", 0.2), eff.changeConditionTagStrength("mental", -0.2), eff.changeAttribute("perception", 0, 1.1)],
+      80:[eff.changeAttribute("willpower", 0, 1.25), eff.changeConditionTagStrength("mental", -0.3), eff.changeConditionStrength("fear", -0.3), eff.changeConditionStrength("despair", -0.25)],
+    },
   },
 
   resting: {
     name:"Resting",
     description:"Do nothing. Faster.",
     parent:null,
-    milestones: {5:"resting_1",10:"resting_2",20:"resting_3",40:"resting_4",80:"resting_5"}
+    milestones: {
+      5: [eff.changeAttribute("constitution", 1, 0)],
+      10:[eff.skillXpMultiplier("resting", 0.1), eff.changeAttribute("willpower", 1, 0)],
+      20:[eff.changeAttribute("constitution", 0, 1.1), eff.changeConditionTagStrength("fatigue", -0.1)],
+      40:[eff.skillXpMultiplier("resting", 0.15), eff.changeConditionTagStrength("fatigue", -0.2), eff.changeConditionTagStrength("injury", -0.1)],
+      80:[eff.changeAttribute("constitution", 0, 1.2), eff.changeConditionTagStrength("fatigue", -0.3), eff.changeConditionTagStrength("illness", -0.15), eff.changeConditionTagStrength("mental", -0.1)],
+    },
   },
+
   meditation: {
     name: "Meditation",
     description: "Clear your mind and relax. Nobody can agree on what exactly it means to meditate, but whatever you're doing seems to help.",
     parent: "resting",
-    milestones: {5:"meditation_1",10:"meditation_2",20:"meditation_3",40:"meditation_4",80:"meditation_5"}
+    milestones: {
+      5: [eff.changeAttribute("willpower", 1, 0)],
+      10:[eff.skillXpMultiplier("meditation", 0.15), eff.changeAttribute("intelligence", 1, 0)],
+      20:[eff.changeAttribute("willpower", 0, 1.1), eff.changeConditionTagStrength("mental", -0.15)],
+      40:[eff.skillXpMultiplier("meditation", 0.2), eff.changeAttribute("willpower", 0, 1.1), eff.changeConditionStrength("fear", -0.2)],
+      80:[eff.changeAttribute("willpower", 0, 1.3), eff.changeConditionTagStrength("mental", -0.3), eff.changeConditionStrength("fear", -0.35), eff.changeConditionStrength("despair", -0.3)],
+    },
   },
+
   sleeping: {
     name: "Sleeping",
     description: "Learn to sleep better, because everything's a skill. Get more from your shut-eye.",
     parent: "resting",
-    milestones: {5:"sleeping_1",10:"sleeping_2",20:"sleeping_3",40:"sleeping_4",80:"sleeping_5"}
+    milestones: {
+      5: [eff.changeAttribute("constitution", 1, 0)],
+      10:[eff.skillXpMultiplier("sleeping", 0.15), eff.changeConditionTagStrength("fatigue", -0.15)],
+      20:[eff.changeAttribute("constitution", 0, 1.1), eff.changeAttribute("willpower", 1, 0), eff.changeConditionTagStrength("fatigue", -0.1)],
+      40:[eff.skillXpMultiplier("sleeping", 0.2), eff.changeConditionTagStrength("fatigue", -0.2), eff.changeConditionTagStrength("injury", -0.1)],
+      80:[eff.changeAttribute("constitution", 0, 1.2), eff.changeConditionTagStrength("fatigue", -0.35), eff.changeConditionTagStrength("illness", -0.2), eff.changeConditionTagStrength("injury", -0.15)],
+    },
   },
 
   training: {
     name:"Training",
     description:"Get stronger without risking your life, a revolutionary concept.",
     parent:null,
-    milestones: {5:"training_1",10:"training_2",20:"training_3",40:"training_4",80:"training_5"}
+    milestones: {
+      5: [eff.changeAttribute("strength", 1, 0), eff.changeAttribute("constitution", 1, 0)],
+      10:[eff.skillXpMultiplier("training", 0.1), eff.changeAttribute("agility", 1, 0)],
+      20:[eff.changeAttribute("strength", 0, 1.1), eff.changeAttribute("constitution", 0, 1.1)],
+      40:[eff.skillXpMultiplier("training", 0.15), eff.changeConditionTagStrength("fatigue", -0.1), eff.changeAttribute("willpower", 1, 0)],
+      80:[eff.changeAttribute("strength", 0, 1.2), eff.changeAttribute("constitution", 0, 1.2), eff.changeAttribute("willpower", 0, 1.1), eff.changeConditionTagStrength("fatigue", -0.15)],
+    },
   },
+
   exercise: {
     name:"Exercise",
     description:"Expend physical effort without any clear goal or reward. A luxurious pastime.",
     parent:"training",
-    milestones: {5:"exercise_1",10:"exercise_2",20:"exercise_3",40:"exercise_4",80:"exercise_5"}
+    milestones: {
+      5: [eff.changeAttribute("constitution", 1, 0), eff.changeAttribute("strength", 1, 0)],
+      10:[eff.skillXpMultiplier("exercise", 0.15), eff.grantSkillXp("running", 20)],
+      20:[eff.changeAttribute("constitution", 0, 1.1), eff.changeAttribute("agility", 0, 1.1)],
+      40:[eff.skillXpMultiplier("exercise", 0.2), eff.changeAttribute("strength", 0, 1.1), eff.changeConditionTagStrength("fatigue", -0.1)],
+      80:[eff.changeAttribute("constitution", 0, 1.2), eff.changeAttribute("strength", 0, 1.15), eff.changeAttribute("agility", 0, 1.15), eff.changeConditionTagStrength("illness", -0.1)],
+    },
   },
+
   sparring: {
     name:"Sparring",
     description:"Fight your friends in a friendly way. Don't go for the kill. Avoid maiming.",
     parent:"training",
-    milestones: {5:"sparring_1",10:"sparring_2",20:"sparring_3",40:"sparring_4",80:"sparring_5"}
+    milestones: {
+      5: [eff.changeAttribute("agility", 1, 0), eff.changeAttribute("dexterity", 1, 0)],
+      10:[eff.skillXpMultiplier("sparring", 0.1), eff.grantSkillXp("combat", 30)],
+      20:[eff.changeAttribute("agility", 0, 1.1), eff.skillXpMultiplier("combat", 0.05)],
+      40:[eff.skillXpMultiplier("sparring", 0.15), eff.skillXpMultiplier("combat", 0.1), eff.changeAttribute("perception", 1, 0)],
+      80:[eff.changeAttribute("agility", 0, 1.2), eff.changeAttribute("dexterity", 0, 1.1), eff.skillXpMultiplier("combat", 0.15), eff.changeConditionStrength("fear", -0.15)],
+    },
   },
 
 
@@ -153,63 +291,138 @@ export const SKILLS = {
     name: "Traversal",
     description: "Move from point A to point B. Do it faster.",
     parent:null,
-    milestones: {5:"traversal_1",10:"traversal_2",20:"traversal_3",40:"traversal_4",80:"traversal_5"}
+    milestones: {
+      5: [eff.changeAttribute("agility", 1, 0), eff.changeAttribute("constitution", 1, 0)],
+      10:[eff.skillXpMultiplier("traversal", 0.1), eff.changeAttribute("agility", 1, 0)],
+      20:[eff.changeAttribute("agility", 0, 1.1), eff.changeAttribute("constitution", 0, 1.1)],
+      40:[eff.skillXpMultiplier("traversal", 0.15), eff.changeAttribute("agility", 0, 1.1), eff.changeConditionTagStrength("fatigue", -0.1)],
+      80:[eff.changeAttribute("agility", 0, 1.25), eff.changeAttribute("constitution", 0, 1.15), eff.changeConditionTagStrength("fatigue", -0.2)],
+    },
   },
+
   running: {
     name: "Running",
     description: "Run, run, as fast as you can. Maybe it'll save your life someday",
     parent:"traversal",
-    milestones: {5:"running_1",10:"running_2",20:"running_3",40:"running_4",80:"running_5"}
+    milestones: {
+      5: [eff.changeAttribute("agility", 1, 0)],
+      10:[eff.skillXpMultiplier("running", 0.15), eff.changeAttribute("constitution", 1, 0)],
+      20:[eff.changeAttribute("agility", 0, 1.1), eff.changeConditionStrength("winded", -0.15)],
+      40:[eff.skillXpMultiplier("running", 0.2), eff.changeAttribute("agility", 0, 1.1), eff.changeConditionStrength("winded", -0.2)],
+      80:[eff.changeAttribute("agility", 0, 1.3), eff.changeAttribute("constitution", 0, 1.15), eff.changeConditionStrength("winded", -0.35), eff.changeConditionTagStrength("fatigue", -0.1)],
+    },
   },
+
   walking: {
     name: "Walking",
     description: "The difference between a lovely stroll and miserable slog is a thin line. Use the line to lace your boots.",
     parent:"traversal",
-    milestones: {5:"walking_1",10:"walking_2",20:"walking_3",40:"walking_4",80:"walking_5"}
+    milestones: {
+      5: [eff.changeAttribute("constitution", 1, 0)],
+      10:[eff.skillXpMultiplier("walking", 0.15), eff.changeAttribute("agility", 1, 0)],
+      20:[eff.changeAttribute("constitution", 0, 1.1), eff.changeConditionTagStrength("fatigue", -0.1)],
+      40:[eff.skillXpMultiplier("walking", 0.2), eff.changeAttribute("constitution", 0, 1.1), eff.changeConditionTagStrength("fatigue", -0.15)],
+      80:[eff.changeAttribute("constitution", 0, 1.2), eff.changeAttribute("agility", 0, 1.1), eff.changeConditionTagStrength("fatigue", -0.25), eff.changeConditionStrength("winded", -0.2)],
+    },
   },
+
   climbing: {
     name: "Climbing",
     description: "Learn how to cling to a vertical surface without exhausting yourself.",
     parent:"traversal",
-    milestones: {5:"climbing_1",10:"climbing_2",20:"climbing_3",40:"climbing_4",80:"climbing_5"}
+    milestones: {
+      5: [eff.changeAttribute("strength", 1, 0), eff.changeAttribute("dexterity", 1, 0)],
+      10:[eff.skillXpMultiplier("climbing", 0.15), eff.changeAttribute("agility", 1, 0)],
+      20:[eff.changeAttribute("strength", 0, 1.1), eff.changeAttribute("dexterity", 0, 1.1)],
+      40:[eff.skillXpMultiplier("climbing", 0.2), eff.changeAttribute("agility", 0, 1.1), eff.changeConditionStrength("winded", -0.15)],
+      80:[eff.changeAttribute("strength", 0, 1.2), eff.changeAttribute("dexterity", 0, 1.2), eff.changeAttribute("agility", 0, 1.1), eff.changeConditionStrength("winded", -0.25)],
+    },
   },
 
 
   labour: { 
     name: "Labour",
     parent:null,
-    milestones: {5:"labour_1",10:"labour_2",20:"labour_3",40:"labour_4",80:"labour_5"},
+    milestones: {
+      5: [eff.changeAttribute("strength", 1, 0), eff.changeAttribute("constitution", 1, 0)],
+      10:[eff.skillXpMultiplier("labour", 0.1), eff.changeAttribute("strength", 1, 0)],
+      20:[eff.changeAttribute("strength", 0, 1.1), eff.changeAttribute("constitution", 0, 1.1)],
+      40:[eff.skillXpMultiplier("labour", 0.15), eff.changeAttribute("strength", 0, 1.1), eff.changeConditionTagStrength("fatigue", -0.1)],
+      80:[eff.changeAttribute("strength", 0, 1.25), eff.changeAttribute("constitution", 0, 1.2), eff.changeConditionTagStrength("fatigue", -0.2)],
+    },
   },
+
   hauling: { 
     name: "Hauling",
     parent: "labour",
-    milestones: {5:"hauling_1",10:"hauling_2",20:"hauling_3",40:"hauling_4",80:"hauling_5"},
+    milestones: {
+      5: [eff.changeAttribute("strength", 1, 0)],
+      10:[eff.skillXpMultiplier("hauling", 0.15), eff.changeAttribute("constitution", 1, 0)],
+      20:[eff.changeAttribute("strength", 0, 1.1), eff.changeConditionStrength("encumbered", -0.15)],
+      40:[eff.skillXpMultiplier("hauling", 0.2), eff.changeAttribute("strength", 0, 1.1), eff.changeConditionStrength("encumbered", -0.25)],
+      80:[eff.changeAttribute("strength", 0, 1.3), eff.changeAttribute("constitution", 0, 1.15), eff.changeConditionStrength("encumbered", -0.35), eff.changeConditionTagStrength("fatigue", -0.1)],
+    },
   },
+
   gathering: { 
     name: "Gathering",
     parent: "labour",
-    milestones: {5:"gathering_1",10:"gathering_2",20:"gathering_3",40:"gathering_4",80:"gathering_5"},
+    milestones: {
+      5: [eff.changeAttribute("perception", 1, 0)],
+      10:[eff.skillXpMultiplier("gathering", 0.1), eff.changeAttribute("wit", 1, 0)],
+      20:[eff.changeAttribute("perception", 0, 1.1), eff.skillXpMultiplier("gathering", 0.1)],
+      40:[eff.skillXpMultiplier("gathering", 0.15), eff.changeAttribute("wit", 0, 1.1), eff.changeAttribute("perception", 0, 1.1)],
+      80:[eff.changeAttribute("perception", 0, 1.2), eff.changeAttribute("wit", 0, 1.15), eff.skillXpMultiplier("gathering", 0.2)],
+    },
   },
+
   woodcutting: { 
     name: "Woodcutting",
     parent: "gathering",
-    milestones: {5:"woodcutting_1",10:"woodcutting_2",20:"woodcutting_3",40:"woodcutting_4",80:"woodcutting_5"},
+    milestones: {
+      5: [eff.changeAttribute("strength", 1, 0)],
+      10:[eff.skillXpMultiplier("woodcutting", 0.15), eff.grantSkillXp("axe", 25)],
+      20:[eff.changeAttribute("strength", 0, 1.1), eff.changeAttribute("constitution", 1, 0)],
+      40:[eff.skillXpMultiplier("woodcutting", 0.2), eff.changeAttribute("strength", 0, 1.1), eff.grantSkillXp("carpentry", 30)],
+      80:[eff.changeAttribute("strength", 0, 1.25), eff.changeAttribute("constitution", 0, 1.1), eff.skillXpMultiplier("carpentry", 0.1)],
+    },
   },
+
   harvesting: { 
     name: "Harvesting",
     parent: "gathering",
-    milestones: {5:"harvesting_1",10:"harvesting_2",20:"harvesting_3",40:"harvesting_4",80:"harvesting_5"},
+    milestones: {
+      5: [eff.changeAttribute("perception", 1, 0)],
+      10:[eff.skillXpMultiplier("harvesting", 0.15), eff.changeAttribute("dexterity", 1, 0)],
+      20:[eff.changeAttribute("perception", 0, 1.1), eff.grantSkillXp("cooking", 20)],
+      40:[eff.skillXpMultiplier("harvesting", 0.2), eff.changeAttribute("dexterity", 0, 1.1), eff.changeAttribute("perception", 0, 1.1)],
+      80:[eff.changeAttribute("perception", 0, 1.2), eff.changeAttribute("dexterity", 0, 1.15), eff.skillXpMultiplier("cooking", 0.1)],
+    },
   },
+
   mining: {
     name: "Mining",
     parent: "gathering",
-    milestones: {5:"mining_1",10:"mining_2",20:"mining_3",40:"mining_4",80:"mining_5"},
+    milestones: {
+      5: [eff.changeAttribute("strength", 1, 0), eff.changeAttribute("perception", 1, 0)],
+      10:[eff.skillXpMultiplier("mining", 0.15), eff.changeAttribute("constitution", 1, 0)],
+      20:[eff.changeAttribute("strength", 0, 1.1), eff.grantSkillXp("smithing", 30)],
+      40:[eff.skillXpMultiplier("mining", 0.2), eff.changeAttribute("perception", 0, 1.1), eff.changeAttribute("strength", 0, 1.1)],
+      80:[eff.changeAttribute("strength", 0, 1.25), eff.changeAttribute("constitution", 0, 1.1), eff.skillXpMultiplier("smithing", 0.1), eff.skillXpMultiplier("stoneworking", 0.1)],
+    },
   },
+
   fishing: {
     name: "Fishing",
     description: "Convince a creature with a brain the size of a pebble to let you grab it from the water.",
     parent: "gathering",
-    milestones: {5:"fishing_1",10:"fishing_2",20:"fishing_3",40:"fishing_4",80:"fishing_5"},
+    milestones: {
+      5: [eff.changeAttribute("perception", 1, 0)],
+      10:[eff.skillXpMultiplier("fishing", 0.15), eff.changeAttribute("wit", 1, 0)],
+      20:[eff.changeAttribute("perception", 0, 1.1), eff.changeConditionTagStrength("mental", -0.1)],
+      40:[eff.skillXpMultiplier("fishing", 0.2), eff.changeAttribute("wit", 0, 1.1), eff.grantSkillXp("cooking", 30)],
+      80:[eff.changeAttribute("perception", 0, 1.2), eff.changeAttribute("wit", 0, 1.15), eff.changeConditionTagStrength("mental", -0.2), eff.skillXpMultiplier("cooking", 0.1)],
+    },
   },
 
 
@@ -217,31 +430,65 @@ export const SKILLS = {
     name: "Crafting",
     description: "Transform raw materials into something more useful. Hopefully.",
     parent: null,
-    milestones: {5:"crafting_1",10:"crafting_2",20:"crafting_3",40:"crafting_4",80:"crafting_5"},
+    milestones: {
+      5: [eff.changeAttribute("dexterity", 1, 0), eff.changeAttribute("intelligence", 1, 0)],
+      10:[eff.skillXpMultiplier("crafting", 0.1), eff.changeAttribute("wit", 1, 0)],
+      20:[eff.changeAttribute("dexterity", 0, 1.1), eff.changeAttribute("intelligence", 0, 1.1)],
+      40:[eff.skillXpMultiplier("crafting", 0.15), eff.changeAttribute("wit", 0, 1.1), eff.changeAttribute("dexterity", 0, 1.1)],
+      80:[eff.changeAttribute("dexterity", 0, 1.2), eff.changeAttribute("intelligence", 0, 1.15), eff.changeAttribute("wit", 0, 1.1), eff.skillXpMultiplier("crafting", 0.2)],
+    },
   },
+
   carpentry: {
     name: "Carpentry",
     description: "Cut wood into smaller pieces and somehow end up with furniture.",
     parent: "crafting",
-    milestones: {5:"carpentry_1",10:"carpentry_2",20:"carpentry_3",40:"carpentry_4",80:"carpentry_5"},
+    milestones: {
+      5: [eff.changeAttribute("dexterity", 1, 0)],
+      10:[eff.skillXpMultiplier("carpentry", 0.15), eff.changeAttribute("intelligence", 1, 0)],
+      20:[eff.changeAttribute("dexterity", 0, 1.1), eff.grantSkillXp("woodcutting", 30)],
+      40:[eff.skillXpMultiplier("carpentry", 0.2), eff.changeAttribute("dexterity", 0, 1.1), eff.changeAttribute("intelligence", 0, 1.1)],
+      80:[eff.changeAttribute("dexterity", 0, 1.25), eff.changeAttribute("intelligence", 0, 1.15), eff.skillXpMultiplier("stoneworking", 0.1)],
+    },
   },
+
   stoneworking: {
     name: "Stoneworking",
     description: "Rock is stubborn. Be more stubborn.",
     parent: "crafting",
-    milestones: {5:"stoneworking_1",10:"stoneworking_2",20:"stoneworking_3",40:"stoneworking_4",80:"stoneworking_5"},
+    milestones: {
+      5: [eff.changeAttribute("strength", 1, 0)],
+      10:[eff.skillXpMultiplier("stoneworking", 0.15), eff.changeAttribute("constitution", 1, 0)],
+      20:[eff.changeAttribute("strength", 0, 1.1), eff.grantSkillXp("mining", 30)],
+      40:[eff.skillXpMultiplier("stoneworking", 0.2), eff.changeAttribute("strength", 0, 1.1), eff.changeAttribute("dexterity", 1, 0)],
+      80:[eff.changeAttribute("strength", 0, 1.2), eff.changeAttribute("constitution", 0, 1.1), eff.changeAttribute("dexterity", 0, 1.1), eff.skillXpMultiplier("mining", 0.1)],
+    },
   },
+
   smithing: {
     name: "Smithing",
     description: "Turns out you're not actually meant to heat iron `red-hot`. Temper your expectations",
     parent: "crafting",
-    milestones: {5:"smithing_1",10:"smithing_2",20:"smithing_3",40:"smithing_4",80:"smithing_5"},
+    milestones: {
+      5: [eff.changeAttribute("strength", 1, 0), eff.changeAttribute("dexterity", 1, 0)],
+      10:[eff.skillXpMultiplier("smithing", 0.15), eff.changeAttribute("intelligence", 1, 0)],
+      20:[eff.changeAttribute("strength", 0, 1.1), eff.changeAttribute("dexterity", 0, 1.1)],
+      40:[eff.skillXpMultiplier("smithing", 0.2), eff.changeAttribute("intelligence", 0, 1.1), eff.grantSkillXp("weapon_proficiency", 30)],
+      80:[eff.changeAttribute("strength", 0, 1.2), eff.changeAttribute("dexterity", 0, 1.2), eff.skillXpMultiplier("weapon_proficiency", 0.1), eff.skillXpMultiplier("mining", 0.1)],
+    },
   },
+
   cooking: {
     name: "Cooking",
     description: "Improve food through the careful application of heat. Usually.",
     parent: "crafting",
-    milestones: {5:"cooking_1",10:"cooking_2",20:"cooking_3",40:"cooking_4",80:"cooking_5"},
+    milestones: {
+      5: [eff.changeAttribute("wit", 1, 0)],
+      10:[eff.skillXpMultiplier("cooking", 0.15), eff.changeAttribute("intelligence", 1, 0)],
+      20:[eff.changeAttribute("wit", 0, 1.1), eff.changeConditionStrength("hungry", -0.2)],
+      40:[eff.skillXpMultiplier("cooking", 0.2), eff.changeAttribute("intelligence", 0, 1.1), eff.changeConditionStrength("hungry", -0.3)],
+      80:[eff.changeAttribute("wit", 0, 1.2), eff.changeAttribute("intelligence", 0, 1.15), eff.changeConditionStrength("hungry", -0.4), eff.changeConditionStrength("poisoned", -0.2)],
+    },
   },
 
 };
