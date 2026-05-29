@@ -45,9 +45,13 @@ export function applySkillEffects(game) {
       const skill = game.skills[skillId];
       const skillData = SKILLS[skillId];
   
-      for (const milestoneLevel in skillData.milestones) {
-        if (milestoneLevel > skill.base) break;
+      // Apply per-level effects
+      for (const i = 0; i <= skill.level; i++) {
         for (const effect of (skillData.level||[])) applyEffect(effect);
+      }
+      // Apply milestone effects
+      for (const milestoneLevel in skillData.milestones) {
+        if (milestoneLevel > skill.level) break;
         for (const effect of skillData.milestones[milestoneLevel]) applyEffect(effect);
       }
   }
