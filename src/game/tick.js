@@ -48,12 +48,13 @@ export function startTicking(render) {
 
 
 function tick() {
-  const previousState = JSON.parse(JSON.stringify(game));
-
   applyEffect(game, {type:"tick"});
 
   for (const skillId in game.skills) {
     game.skills[skillId].multiplier = 1;
+  }
+  for (const conditionId in game.activeConditions) {
+    game.activeConditions[conditionId].strength = 1;
   }
 
   processConditions(game);
