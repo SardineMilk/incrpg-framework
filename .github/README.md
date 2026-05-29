@@ -4,7 +4,7 @@
 
 IncRPG (Incredible Rat Punching Game) is a semi-idle text-based rpg inspired by [Proto 23](https://23html.github.io/) and [Yet Another Idle RPG](https://miktaew.github.io/yet-another-idle-rpg/).
 
-It features a robust data-driven config system that allows new content to be rapidly created without increasing backend complexity and tech-debt.
+It features a robust data-driven config system that allows new content to be rapidly created without increasing backend complexity and tech-debt (much. hopefully.).
 
 
 ## Features
