@@ -105,4 +105,4 @@ const TEMP_CONDITIONS = {
 
 
 
-export const CONDITIONS = Object.assign({}, TEMP_CONDITIONS, TRAITS, INHERENT_EFFECTS);
+export const CONDITIONS = Object.assign({}, TEMP_CONDITIONS, INHERENT_EFFECTS);

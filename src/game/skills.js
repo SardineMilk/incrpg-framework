@@ -1,5 +1,7 @@
 import { SKILLS } from "../data/skillsData.js";
 import { LogType } from "./log.js";
+import { applyEffect } from "./effects.js";
+import { eff } from "../data/structure.js";
 
 export function xpToNext(level) {
   // xpToNext = Math.floor(scalingFactor * Math.pow(2, level/5));
@@ -37,4 +39,18 @@ function propagateParentXp(game, skillId, amount) {
 
   const parentFactor = 0.5
   grantSkillXp(game, parent, amount * parentFactor);
+}
+
+
+export function applySkillEffects(game) {
+  for (const skillId in game.skills) {
+      const skill = game.skills[skillId];
+      const skillLevel = (skill.level + skill.boostFlat) * skill.boostMultiplier;
+  
+      for (const milestoneLevel in skill.milestones) {
+        if (milestoneLevel > skillLevel) break;
+        for (const effect of (skill.level||[])) applyEffect(effect);
+        for (const effect of skill.milestones[milestoneLevel]) applyEffect(effect);
+      }
+  }
 }
