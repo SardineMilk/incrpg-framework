@@ -3,8 +3,10 @@ import { ACTIONS } from "../data/actionsData.js";
 
 function calculateActionSkillFactor(game, action) {
     let factor = 0;
-    for (const [skill, skillFactor] of Object.entries(action.skills)) {
-        factor += game.skills[skill].level * skillFactor * 0.01;
+    for (const [skillId, skillFactor] of Object.entries(action.skills)) {
+        const skill = game.skills[skillId];
+        const skillLevel = (skill.level + skill.bonus.flat) * skill.bonus.multiplier;
+        factor += skillLevel * skillFactor * 0.01;
     }
 
     return factor;

@@ -4,8 +4,8 @@ import { ACTIONS } from "../data/actionsData.js";
 
 export function initialiseState(game) {
     game.skills = game.skills || {};
-    for (const skill in SKILLS) {
-        game.skills[skill] = game.skills[skill] || { xp: 0, level: 0, multiplier: 1 };
+    for (const skillId in SKILLS) {
+        game.skills[skillId] = game.skills[skillId] || { xp: 0, level: 0, multiplier: 1 , bonus: {flat: 0, multiplier: 1}};
     }
 
     game.actions = game.actions || {};

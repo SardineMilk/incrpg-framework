@@ -30,6 +30,13 @@ export const eff = {
     amount,
   }),
 
+  skillBonus: (skill, flat = 0, multiplier = 0) => ({
+    type: "skillBonus",
+    skill,
+    flat,
+    multiplier,
+  }),
+
   /* Increase the flat bonus and/or multiplier of an attribute by an amount */
   changeAttribute: (attribute, flat = 0, multiplier = 0) => ({
     type: "changeAttribute",

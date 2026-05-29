@@ -2,14 +2,14 @@ import { eff } from "./structure.js";
 export const SKILLS = {
   // Attribute skills to allow them to level up.
   // Don't add milestones
-  strength:     {name:"Strength", level:[eff.changeAttribute("strength", 1, 0)]},
-  constitution: {name:"Constitution"},
-  agility:      {name:"Agility"},
-  dexterity:    {name:"Dexterity"},
-  intelligence: {name:"Intelligence"},
-  willpower:    {name:"Willpower"},
-  wit:          {name:"Wit"},
-  perception:   {name:"Perception"},
+  strength:     {name:"Strength", level:[]},
+  constitution: {name:"Constitution", level:[]},
+  agility:      {name:"Agility", level:[]},
+  dexterity:    {name:"Dexterity", level:[]},
+  intelligence: {name:"Intelligence", level:[]},
+  willpower:    {name:"Willpower", level:[]},
+  wit:          {name:"Wit", level:[]},
+  perception:   {name:"Perception", level:[]},
 
 
  
@@ -29,7 +29,7 @@ export const SKILLS = {
   weapon_proficiency: {
     name: "Weapon Proficiency",
     description: "Mastery of melee weapons. Wield them as an extension of your body.",
-    parent: "combat",
+    parent: null,
     milestones: {
       5: [eff.changeAttribute("dexterity", 1, 0)],
       10:[eff.skillXpMultiplier("weapon_proficiency", 0.1)],

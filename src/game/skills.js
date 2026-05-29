@@ -11,8 +11,6 @@ export function xpToNext(level) {
 }
 
 export function grantSkillXp(game, skillId, amount) {
-  game.skills = game.skills || {};
-  game.skills[skillId] = game.skills[skillId] || {xp:0, level:0, multiplier:1}; 
   const skill = game.skills[skillId];
 
   const xpForSkill = amount * game.skills[skillId].multiplier;
@@ -45,12 +43,13 @@ function propagateParentXp(game, skillId, amount) {
 export function applySkillEffects(game) {
   for (const skillId in game.skills) {
       const skill = game.skills[skillId];
-      const skillLevel = (skill.level + skill.boostFlat) * skill.boostMultiplier;
+      const skillData = SKILLS[skillId];
+      const skillLevel = (skill.level + skill.bonus.flat) * skill.bonus.multiplier;
   
-      for (const milestoneLevel in skill.milestones) {
+      for (const milestoneLevel in skillData.milestones) {
         if (milestoneLevel > skillLevel) break;
-        for (const effect of (skill.level||[])) applyEffect(effect);
-        for (const effect of skill.milestones[milestoneLevel]) applyEffect(effect);
+        for (const effect of (skillData.level||[])) applyEffect(effect);
+        for (const effect of skillData.milestones[milestoneLevel]) applyEffect(effect);
       }
   }
 }
