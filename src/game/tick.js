@@ -1,7 +1,7 @@
 import { ACTIONS } from "../data/actionsData.js";
 import { CONDITIONS } from "../data/conditionsData.js";
 import { applyEffect } from "./effects.js";
-import { grantSkillXp } from "./skills.js";
+import { applySkillEffects, grantSkillXp } from "./skills.js";
 import { game } from "./state.js";
 import { initialiseState} from "../utils/state_creator.js";
 import { calculateActionCompetency, calculateActionsCompetency } from "./actions.js";
@@ -69,6 +69,7 @@ function tick() {
         
 
   // TODO apply skill milestones
+  applySkillEffects(game);
 
   // TODO limit this to only visible actions
   calculateActionsCompetency(game);
