@@ -23,49 +23,6 @@ export const game = {
     },
   },
 
-  attributes: {
-    strength: {
-      value:0,
-      flat:0,
-      multiplier:1,
-    },
-    constitution: {
-      value:0,
-      flat:0,
-      multiplier:1,
-    },
-    agility: {
-      value:0,
-      flat:0,
-      multiplier:1,
-    },
-    dexterity: {
-      value:0,
-      flat:0,
-      multiplier:1,
-    },
-    intelligence: {
-      value:0,
-      flat:0,
-      multiplier:1,
-    },
-    willpower: {
-      value:0,
-      flat:0,
-      multiplier:1,
-    },
-    wit: {
-      value:0,
-      flat:0,
-      multiplier:1,
-    },
-    perception: {
-      value:0,
-      flat:0,
-      multiplier:1,
-    },
-  },
-
 
   activeConditions: {
     wet: {

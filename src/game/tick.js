@@ -62,9 +62,13 @@ function tick() {
 
   processConditions(game);
 
-  // TODO apply skill milestones
+  for (const skillId in game.skills) {
+    const skill = game.skills[skillId];
+    game.skills[skillId].level = (skill.base + skill.bonus.flat) * skill.bonus.multiplier;
+  }
+        
 
-  calculateAttributes(game);
+  // TODO apply skill milestones
 
   // TODO limit this to only visible actions
   calculateActionsCompetency(game);
@@ -104,14 +108,5 @@ function processAction() {
     game.actions[current_id].completions += 1;
     game.actions[current_id].progress = 0;
 
-  }
-}
-
-
-function calculateAttributes(game) {
-  for (const name in game.attributes) {
-    const attribute = game.attributes[name];
-    const base = attribute.flat + game.skills[name].level;
-    attribute.value = base * attribute.multiplier;
   }
 }

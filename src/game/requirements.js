@@ -12,10 +12,13 @@ function meetsRequirement(game, requirement) {
     case "locationHasTag":
       return LOCATIONS[game.location].tags.includes(requirement.tag);
 
-    case "attrMoreThan":
-      return game.attributes[requirement.attr].value >= requirement.value;
+    case "skillMoreThan":
+      return game.skills[requirement.skill].level >= requirement.level;
 
-    case "resourceLessThan":
+    case "skillBaseMoreThan":
+      return game.skills[requirement.skill].base >= requirement.level;
+
+      case "resourceLessThan":
       const resourceVal = game.resources[requirement.resource].current;
       const resourceMax = game.resources[requirement.resource].max;
       if (requirement.value >= 0) return resourceVal < requirement.value;

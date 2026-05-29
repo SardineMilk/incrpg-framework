@@ -16,12 +16,12 @@ export function grantSkillXp(game, skillId, amount) {
   const xpForSkill = amount * game.skills[skillId].multiplier;
   if (skillId == "combat") console.log(skillId, amount, xpForSkill);
   skill.xp += xpForSkill;  // TODO add modifiers
-  while (skill.xp >= xpToNext(skill.level)) {
+  while (skill.xp >= xpToNext(skill.base)) {
 
-    skill.xp -= xpToNext(skill.level);
-    skill.level++;
+    skill.xp -= xpToNext(skill.base);
+    skill.base++;
 
-    const skillMessage = `${SKILLS[skillId].name} leveled to ${skill.level}`
+    const skillMessage = `${SKILLS[skillId].name} leveled to ${skill.base}`
     game.log.append(LogType.SKILL, skillMessage);
   }
 
@@ -44,10 +44,9 @@ export function applySkillEffects(game) {
   for (const skillId in game.skills) {
       const skill = game.skills[skillId];
       const skillData = SKILLS[skillId];
-      const skillLevel = (skill.level + skill.bonus.flat) * skill.bonus.multiplier;
   
       for (const milestoneLevel in skillData.milestones) {
-        if (milestoneLevel > skillLevel) break;
+        if (milestoneLevel > skill.base) break;
         for (const effect of (skillData.level||[])) applyEffect(effect);
         for (const effect of skillData.milestones[milestoneLevel]) applyEffect(effect);
       }

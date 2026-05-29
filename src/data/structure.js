@@ -30,17 +30,9 @@ export const eff = {
     amount,
   }),
 
-  skillBonus: (skill, flat = 0, multiplier = 0) => ({
-    type: "skillBonus",
+  skillLevelBonus: (skill, flat = 0, multiplier = 0) => ({
+    type: "skillLevelBonus",
     skill,
-    flat,
-    multiplier,
-  }),
-
-  /* Increase the flat bonus and/or multiplier of an attribute by an amount */
-  changeAttribute: (attribute, flat = 0, multiplier = 0) => ({
-    type: "changeAttribute",
-    attribute,
     flat,
     multiplier,
   }),
@@ -177,10 +169,17 @@ export const req = {
     tag,
   }),
 
-  /* Min requirement for strength, wit, etc */
-  attrMoreThan: (attr, value) => ({
-    type: "attrMoreThan",
-    attr,
+  /* Min requirement for strength, woodworking, etc */
+  skillMoreThan: (skill, value) => ({
+    type: "skillMoreThan",
+    skill,
+    value,
+  }),
+
+  /* Base without any level modifiers added */
+  skillBaseMoreThan: (skill, value) => ({
+    type: "skillBaseMoreThan",
+    skill,
     value,
   }),
 

@@ -13,13 +13,9 @@ export function applyEffect(game, effect) {
         case "skillXpMultiplier":
             game.skills[effect.skill].multiplier += effect.amount;
             break;
-        case "skillBonus":
+        case "skillLevelBonus":
             game.skills[effect.skill].bonus.flat += effect.flat;
             game.skills[effect.skill].bonus.multiplier += effect.multiplier;
-            break;
-        case "changeAttribute":
-            game.attributes[effect.attribute].flat += effect.flat;
-            game.attributes[effect.attribute].multiplier += effect.multiplier;
             break;
         case "applyCondition":
             game.activeConditions[effect.condition] = game.activeConditions[effect.condition] || { strength: 1 };

@@ -22,14 +22,14 @@ function renderStats(game) {
 
   box.innerHTML = "";
 
-  for (const name in game.attributes) {
-
+  const attributes = ["strength", "constitution", "agility", "dexterity", "intelligence", "willpower", "wit", "perception"];
+  for (const attrId of attributes) {
     const div = document.createElement("div");
 
     div.className = "attribute-box";
 
     div.innerText =
-      `${capitalize(name)}: ${game.attributes[name].value}`;
+      `${capitalize(attrId)}: ${game.skills[attrId].level}`;
 
     box.appendChild(div);
   }
