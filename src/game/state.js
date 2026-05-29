@@ -50,8 +50,6 @@ export const game = {
     }
   },
   
+  eventStack: [],
 
-  eventEffects: {
-    tick: [],
-  },
 };

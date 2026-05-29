@@ -38,10 +38,10 @@ export const eff = {
   }),
 
   /* Apply a condition for an optional duration. If no duration is specified, the condition is permanent */
-  applyCondition: (condition, duration=null) => ({
+  applyCondition: (condition, amount=null) => ({
     type: "applyCondition",
     condition,
-    duration,
+    amount,
   }),
 
   /* Increase the strength of a condition by amount */

@@ -25,18 +25,6 @@ export function grantSkillXp(game, skillId, amount) {
     game.log.append(LogType.SKILL, skillMessage);
   }
 
-  // Should this be `amount` or `xpForSkill`?
-  propagateParentXp(game, skillId, xpForSkill);
-}
-
-function propagateParentXp(game, skillId, amount) {
-
-  const parent = SKILLS[skillId].parent;
-
-  if (!parent) return;
-
-  const parentFactor = 0.5
-  grantSkillXp(game, parent, amount * parentFactor);
 }
 
 

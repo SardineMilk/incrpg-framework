@@ -10,8 +10,11 @@ function processTrigger(game, triggerType, context) {
         const matchingTriggers = conditionDef.triggers.filter(t => t.type === triggerType);
         if (!matchingTriggers.length) continue;
         if (!matchingTriggers.some(t => checkTrigger(t, context))) continue;
-
         if (!meetsRequirements(game, conditionDef)) continue;
+
+        // This will break
+        // have fun
+        game.eventStack.push(context);
 
         for (const effect of conditionDef.effects) {
             if (state.strength != 1) applyScaledEffect(game, effect, state.strength);
@@ -27,7 +30,7 @@ function checkTrigger(trigger, context) {
         case "resourceLoss":
             return context.resource === trigger.resource && context.amount <= -trigger.min;
         case "gainSkillXp":
-            return context.skill === trigger.skill;
+            return (context.skill === trigger.skill) || (trigger.skill == undefined);
         case "locationChanges":
             if (trigger.tags.length === 0) return true;
             return trigger.tags.every(tag => context.tags?.includes(tag));
@@ -45,25 +48,25 @@ function checkTrigger(trigger, context) {
 export function processEffectEvents(game, effect) {
     switch (effect.type) {
         case "grantSkillXp":
-            processTrigger(game, "gainSkillXp", { skill:effect.skill });
+            processTrigger(game, "gainSkillXp", effect);
             break;
         case "applyCondition":
-            processTrigger(game, "conditionApplied", { condition:effect.condition });
+            processTrigger(game, "conditionApplied", effect);
             break;
         case "changeResource":
             if (effect.amount > 0)
-                processTrigger(game, "resourceGain", { resource:effect.resource, amount:effect.amount });
+                processTrigger(game, "resourceGain", effect);
             else if (effect.amount < 0)
-                processTrigger(game, "resourceLoss", { resource:effect.resource, amount:effect.amount });
+                processTrigger(game, "resourceLoss", effect);
             break;
         case "setLocation":
-            processTrigger(game, "locationChanges", { tags:effect.tags });
+            processTrigger(game, "locationChanges", effect);
             break;
         case "setActiveAction":
-            processTrigger(game, "actionChanges", {});
+            processTrigger(game, "actionChanges", effect);
             break;
         case "tick":
-            processTrigger(game, "tick", {});
+            processTrigger(game, "tick", effect);
             break;
     }
 }

@@ -1,5 +1,5 @@
 import { req, eff, evt } from "./structure.js"
-
+import { fml } from "./formulas.js";
 
 const INHERENT_EFFECTS = {
     health_regen: {
@@ -62,6 +62,22 @@ const INHERENT_EFFECTS = {
         ]
     },
      
+    parent_xp: {
+        triggers: [
+            evt.gainSkillXp(),
+        ],
+        effects: [
+            eff.sendMessage("SKILL", fml.contextSkill),
+            eff.sendMessage("SKILL", fml.contextAmount),
+
+            
+            eff.grantSkillXp(
+                fml.skillParent(fml.contextSkill), 
+                fml.contextAmount
+            ),
+            
+        ],
+    }
 
 }
 

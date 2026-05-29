@@ -27,6 +27,9 @@ export function startTicking(render) {
   applyEffect(game, eff.applyCondition("stamina_regen"));
   applyEffect(game, eff.applyCondition("mental_regen"));
   applyEffect(game, eff.applyCondition("death"));
+  applyEffect(game, eff.applyCondition("parent_xp"));
+  console.log(game.activeConditions);
+
 
 
   if (intervalId !== null) {
@@ -48,6 +51,7 @@ export function startTicking(render) {
 
 
 function tick() {
+  game.eventStack = [];
   applyEffect(game, {type:"tick"});
 
   for (const skillId in game.skills) {

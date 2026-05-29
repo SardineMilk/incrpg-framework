@@ -5,67 +5,144 @@ import { processEffectEvents } from "./events.js";
 import { CONDITIONS } from "../data/conditionsData.js";
 import { eff } from "../data/structure.js";
 
+function resolve(game, value) {
+    if (typeof value === "function") {
+        console.log(value, value(game))
+
+        return value(game);
+    }
+
+    return value;
+}
+
+
 export function applyEffect(game, effect) {
+
     switch (effect.type) {
-        case "grantSkillXp":
-            grantSkillXp(game, effect.skill, effect.amount);
+        case "grantSkillXp": {
+            const skill = resolve(game, effect.skill);
+            const amount = resolve(game, effect.amount);
+            if (skill == null) break;
+            grantSkillXp(game, skill, amount);
             break;
-        case "skillXpMultiplier":
-            game.skills[effect.skill].multiplier += effect.amount;
+        }
+
+        case "skillXpMultiplier": {
+            const skill = resolve(game, effect.skill);
+            const amount = resolve(game, effect.amount);
+
+            game.skills[skill].multiplier += amount;
             break;
-        case "skillLevelBonus":
-            game.skills[effect.skill].bonus.flat += effect.flat;
-            game.skills[effect.skill].bonus.multiplier += effect.multiplier;
+        }
+
+        case "skillLevelBonus": {
+            const skill = resolve(game, effect.skill);
+            const flat = resolve(game, effect.flat);
+            const multiplier = resolve(game, effect.multiplier);
+
+            game.skills[skill].bonus.flat += flat;
+            game.skills[skill].bonus.multiplier += multiplier;
             break;
-        case "applyCondition":
-            game.activeConditions[effect.condition] = game.activeConditions[effect.condition] || { strength: 1 };
-            if (effect.duration == null) break;
-            game.activeConditions[effect.condition].duration = game.activeConditions[effect.condition].duration || 0;
-            game.activeConditions[effect.condition].duration += effect.duration;
+        }
+
+        case "applyCondition": {
+            const condition = resolve(game, effect.condition);
+            const amount = resolve(game, effect.amount);
+
+            game.activeConditions[condition] =
+                game.activeConditions[condition] || { strength: 1 };
+
+            if (amount == null) break;
+
+            game.activeConditions[condition].duration =
+                game.activeConditions[condition].duration || 0;
+
+            game.activeConditions[condition].duration += amount;
+
             break;
-        case "changeConditionStrength":
-            if (!game.activeConditions[effect.condition]) break;
-            game.activeConditions[effect.condition].strength += effect.amount;
+        }
+
+        case "changeConditionStrength": {
+            const condition = resolve(game, effect.condition);
+            const amount = resolve(game, effect.amount);
+
+            if (!game.activeConditions[condition]) break;
+
+            game.activeConditions[condition].strength += amount;
             break;
-        case "changeConditionTagStrength":
+        }
+
+        case "changeConditionTagStrength": {
+            const tag = resolve(game, effect.tag);
+            const amount = resolve(game, effect.amount);
+
             for (const conditionId in game.activeConditions) {
                 const tags = CONDITIONS[conditionId].tags;
-                if (tags == undefined) continue;
-                if (tags.includes(effect.tag)) {
-                    game.activeConditions[conditionId].strength += effect.amount;
+
+                if (!tags) continue;
+
+                if (tags.includes(tag)) {
+                    game.activeConditions[conditionId].strength += amount;
                 }
             }
+
             break;
-        case "changeResource":
-            game.resources[effect.resource].current += effect.amount; 
+        }
+
+        case "changeResource": {
+            const resource = resolve(game, effect.resource);
+            const amount = resolve(game, effect.amount);
+
+            game.resources[resource].current += amount;
             break;
-        case "setResource":
-            game.resources[effect.resource].current = effect.amount;
+        }
+
+        case "setResource": {
+            const resource = resolve(game, effect.resource);
+            const amount = resolve(game, effect.amount);
+
+            game.resources[resource].current = amount;
             break;
-        case "setLocation":
-            game.location = effect.location;
+        }
+
+        case "setLocation": {
+            game.location = resolve(game, effect.location);
             break;
-        case "sendMessage":
+        }
+
+        case "sendMessage": {
+            //console.log(resolve(game, effect.message));
             game.log.append(
                 LogType.ACTION,
-                effect.message,
+                resolve(game, effect.message),
             );
+
             break;
-        case "setActiveAction":
-            game.activeAction = effect.action;
-            break;  
+        }
+
+        case "setActiveAction": {
+            game.activeAction = resolve(game, effect.action);
+            break;
+        }
+
         case "tick":
             game.tick++;
             break;
-        case "presentChoice":
+
+        case "presentChoice": {
             game.log.append(
                 LogType.ACTION,
-                effect.options,
+                resolve(game, effect.options),
             );
+
             break;
+        }
+
         default:
             console.warn("Unknown effect type:", effect.type);
     }
+
+
     processEffectEvents(game, effect);
 }
 
@@ -78,10 +155,6 @@ export function changeEffectStrength(game, effect, multiplier) {
             break;
         case "skillXpMultiplier":
             scaledEffect.amount *= multiplier;
-            break;
-        case "changeAttribute":
-            scaledEffect.flat *= multiplier;
-            scaledEffect.multiplier *= multiplier;
             break;
         case "applyCondition":
             if (scaledEffect.duration == null) break;
