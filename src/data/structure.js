@@ -183,7 +183,12 @@ export const req = {
     value,
   }),
 
-  // If value is negative, it's treated as `resource.max - value`
+  resourceUnderMaxBy: (resource, value) => ({
+    type: "resourceUnderMaxBy",
+    resource,
+    value,
+  }),
+
   resourceLessThan: (resource, value) => ({
     type: "resourceLessThan",
     resource,

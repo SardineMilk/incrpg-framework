@@ -8,10 +8,11 @@ const INHERENT_EFFECTS = {
             evt.tick(),
         ],
         requirements: [
-            req.resourceLessThan("health", -1),
+            req.resourceUnderMaxBy("health", 1),
+            //req.resourceUnderMaxBy("health", fml.conditionStrength("health_regen")),
         ],
         effects: [
-            eff.changeResource("health", 0.1),
+            eff.changeResource("health", 1),
             eff.grantSkillXp("regeneration", 0.1),
         ],
     },
@@ -21,10 +22,11 @@ const INHERENT_EFFECTS = {
             evt.tick(),
         ],
         requirements: [
-            req.resourceLessThan("stamina", -1),
+            //req.resourceUnderMaxBy("stamina", 1),
+            req.resourceUnderMaxBy("stamina", fml.conditionStrength("stamina_regen")),
         ],
         effects: [
-            eff.changeResource("stamina", 0.1),
+            eff.changeResource("stamina", 1),
             eff.grantSkillXp("breathing", 0.1),
         ],
     },
@@ -34,10 +36,11 @@ const INHERENT_EFFECTS = {
             evt.tick(),
         ],
         requirements: [
-            req.resourceLessThan("mental", -1),
+            req.resourceUnderMaxBy("mental", 1),
+            //req.resourceUnderMaxBy("mental", fml.conditionStrength("mental_regen")),
         ],
         effects: [
-            eff.changeResource("mental", 0.1),
+            eff.changeResource("mental", 1),
             eff.grantSkillXp("mindfulness", 0.1),
         ],
     },

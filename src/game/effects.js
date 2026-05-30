@@ -6,12 +6,10 @@ import { CONDITIONS } from "../data/conditionsData.js";
 import { eff } from "../data/structure.js";
 
 function resolve(game, value) {
-    if (typeof value === "function") {
-        return value(game);
-    }
-
-    return value;
+    return typeof value === 'function' ? value(game) : value;
 }
+
+
 export function applyEffect(game, effect) {
     let doTrigger = true;
     let resolvedEffect = effect;  // will hold resolved values for processEffectEvents
@@ -125,7 +123,7 @@ export function applyEffect(game, effect) {
 
 
 export function changeEffectStrength(game, effect, multiplier) {
-    let scaledEffect = structuredClone(effect);
+    let scaledEffect = { ...effect };
     switch (scaledEffect.type) {
         case "grantSkillXp":
             scaledEffect.amount *= multiplier;
