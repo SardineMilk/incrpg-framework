@@ -67,17 +67,12 @@ const INHERENT_EFFECTS = {
             evt.gainSkillXp(),
         ],
         effects: [
-            eff.sendMessage("SKILL", fml.contextSkill),
-            eff.sendMessage("SKILL", fml.contextAmount),
-
-            /*
             eff.grantSkillXp(
                 fml.skillParent(fml.contextSkill), 
-                fml.contextAmount
+                fml.contextAmount,
             ),
-            */
         ],
-    }
+    },
 
 }
 

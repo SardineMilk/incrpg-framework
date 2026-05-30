@@ -30,6 +30,7 @@ function checkTrigger(trigger, context) {
         case "resourceLoss":
             return context.resource === trigger.resource && context.amount <= -trigger.min;
         case "gainSkillXp":
+            if (!context.skill) return false;
             return (context.skill === trigger.skill) || (trigger.skill == undefined);
         case "locationChanges":
             if (trigger.tags.length === 0) return true;
