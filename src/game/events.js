@@ -14,7 +14,7 @@ function processTrigger(game, triggerType, context) {
 
         // This will break
         // have fun
-        game.eventStack.push(context);
+        game.context = context;
 
         for (const effect of conditionDef.effects) {
             if (state.strength != 1) applyScaledEffect(game, effect, state.strength);

@@ -51,7 +51,6 @@ export function startTicking(render) {
 
 
 function tick() {
-  game.eventStack = [];
   applyEffect(game, {type:"tick"});
 
   for (const skillId in game.skills) {

@@ -1,13 +1,10 @@
 import { SKILLS } from "./skillsData.js"
 
-function currentContext(game) {
-    return game.eventStack[game.eventStack.length - 1];
-}
 
 export const fml = {
-    contextAmount: (game) => currentContext(game)?.amount,
+    contextAmount: (game) => game.context.amount,
     
-    contextSkill: (game) => currentContext(game)?.skill,
+    contextSkill: (game) => game.context.skill,
     
     skillParent: (skillFn) => (game) => {
         const skill = skillFn(game);

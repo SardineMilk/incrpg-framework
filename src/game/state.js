@@ -50,6 +50,6 @@ export const game = {
     }
   },
   
-  eventStack: [],
+  context: {},
 
 };
