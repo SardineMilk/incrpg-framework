@@ -2,14 +2,14 @@ import { req, eff, evt } from "./structure.js"
 import { fml } from "./formulas.js";
 
 const INHERENT_EFFECTS = {
+    // Will need to clamp max/min health 
     health_regen: {
         tags: ["passive_regen"],
         triggers: [
             evt.tick(),
         ],
         requirements: [
-            req.resourceUnderMaxBy("health", 1),
-            //req.resourceUnderMaxBy("health", fml.conditionStrength("health_regen")),
+            req.resourceUnderMaxBy("health", fml.conditionStrength("health_regen")),
         ],
         effects: [
             eff.changeResource("health", 1),
@@ -22,7 +22,6 @@ const INHERENT_EFFECTS = {
             evt.tick(),
         ],
         requirements: [
-            //req.resourceUnderMaxBy("stamina", 1),
             req.resourceUnderMaxBy("stamina", fml.conditionStrength("stamina_regen")),
         ],
         effects: [
@@ -36,8 +35,7 @@ const INHERENT_EFFECTS = {
             evt.tick(),
         ],
         requirements: [
-            req.resourceUnderMaxBy("mental", 1),
-            //req.resourceUnderMaxBy("mental", fml.conditionStrength("mental_regen")),
+            req.resourceUnderMaxBy("mental", fml.conditionStrength("mental_regen")),
         ],
         effects: [
             eff.changeResource("mental", 1),
