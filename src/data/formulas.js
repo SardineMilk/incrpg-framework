@@ -14,7 +14,7 @@ export const fml = {
     contextAmount:      lift((game)                 => game.context.amount),
     contextSkill:       lift((game)                 => game.context.skill),
     contextCondition:   lift((game)                 => game.context.condition),
-    
+
     conditionStrength:  lift((game, condition)      => game.activeConditions[condition]?.strength),
     resourceCurrent:    lift((game, resource)       => game.resources[resource]?.current),
     skillLevel:         lift((game, skill)          => game.skills[skill]?.level),

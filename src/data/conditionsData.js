@@ -71,8 +71,8 @@ const INHERENT_EFFECTS = {
         ],
         effects: [
             eff.grantSkillXp(
-                fml.skillParent(fml.contextSkill), 
-                fml.contextAmount,
+                fml.skillParent(fml.contextSkill()), 
+                fml.contextAmount(),
             ),
         ],
     },
