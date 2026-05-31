@@ -211,7 +211,7 @@ export const req = {
 
   /* Does the player not have this condition */
   hasNotCondition: (condition) => ({
-    type: "hasCondition",
+    type: "hasNotCondition",
     condition,
   }),
 

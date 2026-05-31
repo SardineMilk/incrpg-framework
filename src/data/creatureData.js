@@ -3,6 +3,6 @@ export const NPCS = {
     name: "Elder Maren",
     location: "village_1",
     tags: ["human", "elder", "quest_giver"],
-    dialogue: "elder_maren_dialogue",
+    actions: "elder_maren_dialogue",
   }
 }

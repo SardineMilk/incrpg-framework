@@ -7,7 +7,7 @@ export const game = {
     health: {
       current: 100,
       max: 100,
-      multiplier: 1,
+      multiplier: 1,  // TODO use this
     },
 
     stamina: {
@@ -50,7 +50,6 @@ export const game = {
     }
   },
   
-  context: {},
 
   flags: {},
 

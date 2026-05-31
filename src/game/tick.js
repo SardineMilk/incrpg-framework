@@ -23,7 +23,7 @@ export function startTicking(render) {
   game.log.followTail = true;
 
   if (intervalId !== null) {
-    setIntervalFix(intervalId);
+    clearIntervalFix(intervalId);
   }
 
   intervalId = setIntervalFix(() => {
@@ -61,7 +61,6 @@ function tick() {
   }
         
 
-  // TODO apply skill milestones
   applySkillEffects(game);
 
   // TODO limit this to only visible actions

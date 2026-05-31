@@ -1,34 +1,47 @@
 import { SKILLS } from "./skillsData.js";
 import { game } from "../game/state.js";
 
-// no touchy
-// have fun trying to edit this, future me
+
 const res = (val) => (typeof val === 'function' ? val() : val);
 export const lift = (fn) => (...args) => () => fn(game, ...args.map(res));
 
+const _contextStack = [];
+export function withContext(ctx, fn) {
+    _contextStack.push(ctx);
+    try {
+        return fn();
+    } finally {
+        _contextStack.pop();
+    }
+}
+function currentContext() {
+    return _contextStack[_contextStack.length - 1] ?? {};
+}
 
-// When adding new formula:
-// It takes `game` as a parameter, but you dont need to pass game in at point of use
+
+// When adding a new formula it takes `game` as a parameter,
+// but you don't need to pass game at point of use.
 const definitions = {
-    contextAmount:    (game) => game.context.amount,
-    contextSkill:     (game) => game.context.skill,
-    contextCondition: (game) => game.context.condition,
+    // Context accessors read from the top of the stack rather than game.context.
+    // The game parameter is unused here by design.
+    contextAmount:    (_game) => currentContext().amount,
+    contextSkill:     (_game) => currentContext().skill,
+    contextCondition: (_game) => currentContext().condition,
 
-    conditionStrength:  (game, condition)   => game.activeConditions[condition]?.strength,
-    resourceCurrent:    (game, resource)    => game.resources[resource]?.current,
-    skillLevel:         (game, skill)       => game.skills[skill]?.level,
-    skillParent:        (game, skill)       => SKILLS[skill]?.parent,
-    flagValue:          (game, flag)        => game.flags[flag],
+    conditionStrength:  (game, condition)      => game.activeConditions[condition]?.strength,
+    resourceCurrent:    (game, resource)       => game.resources[resource]?.current,
+    skillLevel:         (game, skill)          => game.skills[skill]?.level,
+    skillParent:        (_game, skill)         => SKILLS[skill]?.parent,
+    flagValue:          (game, flag)           => game.flags[flag],
 
-
-    add:     (game, x, y) => x + y,
-    sub:     (game, x, y) => x - y,
-    mul:     (game, x, y) => x * y,
-    div:     (game, x, y) => x / y,
-    min:     (game, x, y) => Math.min(x, y),
-    max:     (game, x, y) => Math.max(x, y),
-    clamp:   (game, x, min, max) => Math.max(min, Math.min(max, x)),
-    ternary: (game, cond, t, f) => cond ? t : f,
+    add:     (_game, x, y)         => x + y,
+    sub:     (_game, x, y)         => x - y,
+    mul:     (_game, x, y)         => x * y,
+    div:     (_game, x, y)         => x / y,
+    min:     (_game, x, y)         => Math.min(x, y),
+    max:     (_game, x, y)         => Math.max(x, y),
+    clamp:   (_game, x, min, max)  => Math.max(min, Math.min(max, x)),
+    ternary: (_game, cond, t, f)   => cond ? t : f,
 };
 
 export const fml = Object.fromEntries(

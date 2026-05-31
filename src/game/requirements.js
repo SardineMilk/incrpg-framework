@@ -39,7 +39,7 @@ function meetsRequirement(game, requirement) {
             return !(requirement.condition in game.activeConditions);
 
         case "flagSet":
-            return game[resolve(game, requirement.flag)] != false;
+            return game.flags[resolve(game, requirement.flag)] != false;
 
         default:
             return false;

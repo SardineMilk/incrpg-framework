@@ -1,6 +1,7 @@
 import { CONDITIONS } from "../data/conditionsData.js";
 import { applyEffect, applyScaledEffect } from "./effects.js";
 import { meetsRequirements } from "./requirements.js";
+import { withContext } from "../data/formulas.js";
 
 function processTrigger(game, triggerType, context) {
     for (const [id, state] of Object.entries(game.activeConditions)) {
@@ -14,12 +15,12 @@ function processTrigger(game, triggerType, context) {
 
         // This will break
         // have fun
-        game.context = context;
-
-        for (const effect of conditionDef.effects) {
-            if (state.strength != 1) applyScaledEffect(game, effect, state.strength);
-            else applyEffect(game, effect);
-        }
+        withContext(context, () => {
+            for (const effect of conditionDef.effects) {
+                if (state.strength != 1) applyScaledEffect(game, effect, state.strength);
+                else applyEffect(game, effect);
+            }
+        });
     }
 }
 

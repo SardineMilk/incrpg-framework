@@ -14,7 +14,6 @@ export function grantSkillXp(game, skillId, amount) {
   const skill = game.skills[skillId];
 
   const xpForSkill = amount * game.skills[skillId].multiplier;
-  if (skillId == "combat") console.log(skillId, amount, xpForSkill);
   skill.xp += xpForSkill;  // TODO add modifiers
   while (skill.xp >= xpToNext(skill.base)) {
 

@@ -10,11 +10,6 @@ export function renderSkills(game) {
 
     const skills = game.skills || {};
 
-    const visible = Object.entries(skills)
-        .filter(([, s]) => s?.level >= 1)
-        .sort((a, b) => b[1].level - a[1].level);
-
-    if (!visible.length) return;
 
     for (const skillId in SKILLS) {
         const skill = SKILLS[skillId];

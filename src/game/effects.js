@@ -26,10 +26,12 @@ export function applyEffect(game, effect) {
             break;
 
         case "skillXpMultiplier":
+            if (e.skill == null) { doTrigger = false; break; }
             game.skills[e.skill].multiplier += e.amount;
             break;
 
         case "skillLevelBonus":
+            if (e.skill == null) { doTrigger = false; break; }
             game.skills[e.skill].bonus.flat       += e.flat;
             game.skills[e.skill].bonus.multiplier += e.multiplier;
             break;
@@ -37,7 +39,7 @@ export function applyEffect(game, effect) {
         case "applyCondition":
             game.activeConditions[e.condition] =
                 game.activeConditions[e.condition] || { strength: 1 };
-            if (e.amount == null) { doTrigger = false; break; }
+            if (e.amount == null || e.condition == null) { doTrigger = false; break; }
             game.activeConditions[e.condition].duration =
                 game.activeConditions[e.condition].duration || 0;
             game.activeConditions[e.condition].duration += e.amount;
