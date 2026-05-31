@@ -3,6 +3,7 @@
 // (not) hasCondition
 
 import { LOCATIONS } from "../data/locationsData.js"
+import { req } from "../data/structure.js";
 
 function resolve(game, value) {
     return typeof value === 'function' ? value(game) : value;
@@ -36,6 +37,9 @@ function meetsRequirement(game, requirement) {
 
         case "hasNotCondition":
             return !(requirement.condition in game.activeConditions);
+
+        case "flagSet":
+            return game[resolve(game, requirement.flag)] != false;
 
         default:
             return false;

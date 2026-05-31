@@ -96,6 +96,13 @@ export const eff = {
     type: "presentChoice",
     options,
   }),
+
+  /* Used for recording arbitrary values */
+  setFlag: (flag, value) => ({
+    type: "setFlag",
+    flag,
+    value,
+  })
 };
 
 /*
@@ -207,4 +214,10 @@ export const req = {
     type: "hasCondition",
     condition,
   }),
+
+  /* Is the value of flag not falsy */
+  flagSet: (flag) => ({
+    type: "flagSet",
+    flag,
+  })
 };

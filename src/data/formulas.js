@@ -14,10 +14,12 @@ const definitions = {
     contextSkill:     (game) => game.context.skill,
     contextCondition: (game) => game.context.condition,
 
-    conditionStrength: (game, condition) => game.activeConditions[condition]?.strength,
-    resourceCurrent:   (game, resource)  => game.resources[resource]?.current,
-    skillLevel:        (game, skill)     => game.skills[skill]?.level,
-    skillParent:       (game, skill)     => SKILLS[skill]?.parent,
+    conditionStrength:  (game, condition)   => game.activeConditions[condition]?.strength,
+    resourceCurrent:    (game, resource)    => game.resources[resource]?.current,
+    skillLevel:         (game, skill)       => game.skills[skill]?.level,
+    skillParent:        (game, skill)       => SKILLS[skill]?.parent,
+    flagValue:          (game, flag)        => game.flags[flag],
+
 
     add:     (game, x, y) => x + y,
     sub:     (game, x, y) => x - y,

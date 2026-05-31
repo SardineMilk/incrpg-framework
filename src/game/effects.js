@@ -23,6 +23,7 @@ export function applyEffect(game, effect) {
             grantSkillXp(game, skill, amount);
             break;
         }
+
         case "skillXpMultiplier": {
             const skill  = resolve(game, effect.skill);
             const amount = resolve(game, effect.amount);
@@ -39,6 +40,7 @@ export function applyEffect(game, effect) {
             game.skills[skill].bonus.multiplier += multiplier;
             break;
         }
+
         case "applyCondition": {
             const condition = resolve(game, effect.condition);
             const amount    = resolve(game, effect.amount);
@@ -51,6 +53,7 @@ export function applyEffect(game, effect) {
             game.activeConditions[condition].duration += amount;
             break;
         }
+
         case "changeConditionStrength": {
             const condition = resolve(game, effect.condition);
             const amount    = resolve(game, effect.amount);
@@ -59,6 +62,7 @@ export function applyEffect(game, effect) {
             game.activeConditions[condition].strength += amount;
             break;
         }
+
         case "changeConditionTagStrength": {
             const tag    = resolve(game, effect.tag);
             const amount = resolve(game, effect.amount);
@@ -72,6 +76,7 @@ export function applyEffect(game, effect) {
             }
             break;
         }
+
         case "changeResource": {
             const resource = resolve(game, effect.resource);
             const amount   = resolve(game, effect.amount);
@@ -79,6 +84,7 @@ export function applyEffect(game, effect) {
             game.resources[resource].current += amount;
             break;
         }
+
         case "setResource": {
             const resource = resolve(game, effect.resource);
             const amount   = resolve(game, effect.amount);
@@ -86,33 +92,47 @@ export function applyEffect(game, effect) {
             game.resources[resource].current = amount;
             break;
         }
+
         case "setLocation": {
             const location = resolve(game, effect.location);
             resolvedEffect = { ...effect, location };
             game.location = location;
             break;
         }
+
         case "sendMessage": {
             const message = resolve(game, effect.message);
             resolvedEffect = { ...effect, message };
             game.log.append(LogType.ACTION, message);
             break;
         }
+
         case "setActiveAction": {
             const action = resolve(game, effect.action);
             resolvedEffect = { ...effect, action };
             game.activeAction = action;
             break;
         }
-        case "tick":
+
+        case "tick": {
             game.tick++;
             break;
+        }
+
         case "presentChoice": {
             const options = resolve(game, effect.options);
             resolvedEffect = { ...effect, options };
             game.log.append(LogType.ACTION, options);
             break;
         }
+
+        case "setFlag": {
+            const flag = resolve(game, effect.flag);
+            const value = resolve(game, effect.value);
+            resolvedEffect = { ...effect, flag, value};
+            game.flags[flag] = value;
+        }
+
         default:
             console.warn("Unknown effect type:", effect.type);
     }

@@ -52,4 +52,6 @@ export const game = {
   
   context: {},
 
+  flags: {},
+
 };
