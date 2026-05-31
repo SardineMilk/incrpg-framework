@@ -22,17 +22,15 @@ function currentContext() {
 // When adding a new formula it takes `game` as a parameter,
 // but you don't need to pass game at point of use.
 const definitions = {
-    // Context accessors read from the top of the stack rather than game.context.
-    // The game parameter is unused here by design.
     contextAmount:    (_game) => currentContext().amount,
     contextSkill:     (_game) => currentContext().skill,
     contextCondition: (_game) => currentContext().condition,
 
     conditionStrength:  (game, condition)      => game.activeConditions[condition]?.strength,
     resourceCurrent:    (game, resource)       => game.resources[resource]?.current,
+    flagValue:          (game, flag)           => game.flags[flag],
     skillLevel:         (game, skill)          => game.skills[skill]?.level,
     skillParent:        (_game, skill)         => SKILLS[skill]?.parent,
-    flagValue:          (game, flag)           => game.flags[flag],
 
     add:     (_game, x, y)         => x + y,
     sub:     (_game, x, y)         => x - y,
