@@ -22,16 +22,6 @@ export function startTicking(render) {
   game.log.container.scrollTop = game.log.container.scrollHeight;
   game.log.followTail = true;
 
-  // TODO factor this out
-  applyEffect(game, eff.applyCondition("health_regen"));
-  applyEffect(game, eff.applyCondition("stamina_regen"));
-  applyEffect(game, eff.applyCondition("mental_regen"));
-  applyEffect(game, eff.applyCondition("death"));
-  applyEffect(game, eff.applyCondition("parent_xp"));
-  console.log(game.activeConditions);
-
-
-
   if (intervalId !== null) {
     setIntervalFix(intervalId);
   }

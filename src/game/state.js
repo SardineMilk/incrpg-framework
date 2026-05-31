@@ -25,11 +25,11 @@ export const game = {
 
 
   activeConditions: {
-    wet: {
-      duration: 60,
-      strength: 1,
-    },
-
+    health_regen: {},
+    stamina_regen: {},
+    mental_regen: {},
+    death: {},
+    parent_xp: {},
   },
 
   inventory: {
