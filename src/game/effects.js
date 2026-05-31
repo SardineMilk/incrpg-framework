@@ -1,165 +1,116 @@
-
 import { LogType } from "./log.js";
 import { grantSkillXp } from "./skills.js";
 import { processEffectEvents } from "./events.js";
 import { CONDITIONS } from "../data/conditionsData.js";
-import { eff } from "../data/structure.js";
 
 function resolve(game, value) {
     return typeof value === 'function' ? value(game) : value;
 }
 
+function resolveEffect(game, effect) {
+    const e = { ...effect };
+    for (const [key, val] of Object.entries(e)) {
+        if (key !== "type") e[key] = resolve(game, val);
+    }
+    return e;
+}
 
 export function applyEffect(game, effect) {
     let doTrigger = true;
-    let resolvedEffect = effect;  // will hold resolved values for processEffectEvents
+    const e = resolveEffect(game, effect);
 
-    switch (effect.type) {
-        case "grantSkillXp": {
-            const skill  = resolve(game, effect.skill);
-            const amount = resolve(game, effect.amount);
-            resolvedEffect = { ...effect, skill, amount };
-            if (skill == null || skill == undefined) { doTrigger = false; break; }
-            grantSkillXp(game, skill, amount);
+    switch (e.type) {
+        case "grantSkillXp":
+            if (e.skill == null) { doTrigger = false; break; }
+            grantSkillXp(game, e.skill, e.amount);
             break;
-        }
 
-        case "skillXpMultiplier": {
-            const skill  = resolve(game, effect.skill);
-            const amount = resolve(game, effect.amount);
-            resolvedEffect = { ...effect, skill, amount };
-            game.skills[skill].multiplier += amount;
+        case "skillXpMultiplier":
+            game.skills[e.skill].multiplier += e.amount;
             break;
-        }
-        case "skillLevelBonus": {
-            const skill      = resolve(game, effect.skill);
-            const flat       = resolve(game, effect.flat);
-            const multiplier = resolve(game, effect.multiplier);
-            resolvedEffect = { ...effect, skill, flat, multiplier };
-            game.skills[skill].bonus.flat       += flat;
-            game.skills[skill].bonus.multiplier += multiplier;
-            break;
-        }
 
-        case "applyCondition": {
-            const condition = resolve(game, effect.condition);
-            const amount    = resolve(game, effect.amount);
-            resolvedEffect = { ...effect, condition, amount };
-            game.activeConditions[condition] =
-                game.activeConditions[condition] || { strength: 1 };
-            if (amount == null) { doTrigger = false; break; }
-            game.activeConditions[condition].duration =
-                game.activeConditions[condition].duration || 0;
-            game.activeConditions[condition].duration += amount;
+        case "skillLevelBonus":
+            game.skills[e.skill].bonus.flat       += e.flat;
+            game.skills[e.skill].bonus.multiplier += e.multiplier;
             break;
-        }
 
-        case "changeConditionStrength": {
-            const condition = resolve(game, effect.condition);
-            const amount    = resolve(game, effect.amount);
-            resolvedEffect = { ...effect, condition, amount };
-            if (!game.activeConditions[condition]) break;
-            game.activeConditions[condition].strength += amount;
+        case "applyCondition":
+            game.activeConditions[e.condition] =
+                game.activeConditions[e.condition] || { strength: 1 };
+            if (e.amount == null) { doTrigger = false; break; }
+            game.activeConditions[e.condition].duration =
+                game.activeConditions[e.condition].duration || 0;
+            game.activeConditions[e.condition].duration += e.amount;
             break;
-        }
 
-        case "changeConditionTagStrength": {
-            const tag    = resolve(game, effect.tag);
-            const amount = resolve(game, effect.amount);
-            resolvedEffect = { ...effect, tag, amount };
+        case "changeConditionStrength":
+            if (!game.activeConditions[e.condition]) break;
+            game.activeConditions[e.condition].strength += e.amount;
+            break;
+
+        case "changeConditionTagStrength":
             for (const conditionId in game.activeConditions) {
                 const tags = CONDITIONS[conditionId].tags;
-                if (!tags) continue;
-                if (tags.includes(tag)) {
-                    game.activeConditions[conditionId].strength += amount;
-                }
+                if (tags?.includes(e.tag))
+                    game.activeConditions[conditionId].strength += e.amount;
             }
             break;
-        }
 
-        case "changeResource": {
-            const resource = resolve(game, effect.resource);
-            const amount   = resolve(game, effect.amount);
-            resolvedEffect = { ...effect, resource, amount };
-            game.resources[resource].current += amount;
+        case "changeResource":
+            game.resources[e.resource].current += e.amount;
             break;
-        }
 
-        case "setResource": {
-            const resource = resolve(game, effect.resource);
-            const amount   = resolve(game, effect.amount);
-            resolvedEffect = { ...effect, resource, amount };
-            game.resources[resource].current = amount;
+        case "setResource":
+            game.resources[e.resource].current = e.amount;
             break;
-        }
 
-        case "setLocation": {
-            const location = resolve(game, effect.location);
-            resolvedEffect = { ...effect, location };
-            game.location = location;
+        case "setLocation":
+            game.location = e.location;
             break;
-        }
 
-        case "sendMessage": {
-            const message = resolve(game, effect.message);
-            resolvedEffect = { ...effect, message };
-            game.log.append(LogType.ACTION, message);
+        case "sendMessage":
+            // TODO remove stupid LogType thing
+            game.log.append(LogType.ACTION, e.message);
             break;
-        }
 
-        case "setActiveAction": {
-            const action = resolve(game, effect.action);
-            resolvedEffect = { ...effect, action };
-            game.activeAction = action;
+        case "setActiveAction":
+            game.activeAction = e.action;
             break;
-        }
 
-        case "tick": {
+        case "tick":
             game.tick++;
             break;
-        }
 
-        case "presentChoice": {
-            const options = resolve(game, effect.options);
-            resolvedEffect = { ...effect, options };
-            game.log.append(LogType.ACTION, options);
+        case "presentChoice":
+            // TODO hook into UI
+            game.log.append(LogType.ACTION, e.options);
             break;
-        }
 
-        case "setFlag": {
-            const flag = resolve(game, effect.flag);
-            const value = resolve(game, effect.value);
-            resolvedEffect = { ...effect, flag, value};
-            game.flags[flag] = value;
-        }
+        case "setFlag":
+            game.flags[e.flag] = e.value;
+            break;
 
         default:
-            console.warn("Unknown effect type:", effect.type);
+            console.warn("Unknown effect type:", e.type);
     }
 
     if (!doTrigger) return;
-    processEffectEvents(game, resolvedEffect);
+    processEffectEvents(game, e);
 }
 
-
 export function changeEffectStrength(game, effect, multiplier) {
-    let scaledEffect = { ...effect };
+    const scaledEffect = { ...effect };
     switch (scaledEffect.type) {
+        // TODO add all effects that make sense
         case "grantSkillXp":
-            scaledEffect.amount *= multiplier;
-            break;
         case "skillXpMultiplier":
-            scaledEffect.amount *= multiplier;
+        case "changeConditionStrength":
+        case "changeResource":
+            scaledEffect.amount = (val) => resolve(game, effect.amount) * multiplier;
             break;
         case "applyCondition":
             if (scaledEffect.duration == null) break;
-            scaledEffect.duration *= multiplier;
-            break;
-        case "changeConditionStrength":
-            scaledEffect.amount *= multiplier;
-            break;
-        case "changeResource":
-            scaledEffect.amount *= multiplier;
+            scaledEffect.duration = (val) => resolve(game, effect.duration) * multiplier;
             break;
         default:
             console.warn("Cannot change effect strength of:", effect);
